@@ -31,7 +31,7 @@ const RecipeList = () => {
     <>
       <h1>Taste Buds Recipes</h1>
       <Link to="/recipes/new">Want to add your own?</Link>
-      <div className="grid-x grid-margin-x">{recipeTiles}</div>
+      <div className="grid-x grid-margin-x callout secondary">{recipeTiles}</div>
     </>
   );
 };

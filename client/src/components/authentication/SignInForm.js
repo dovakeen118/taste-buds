@@ -53,9 +53,7 @@ const SignInForm = () => {
             const serverErrors = await response.json();
             setCredentialsErrors(serverErrors.message);
           }
-          const errorMessage = `${response.status} (${response.statusText})`;
-          const error = new Error(errorMessage);
-          throw error;
+          throw new Error(`${response.status} (${response.statusText})`);
         }
         const userData = await response.json();
         setShouldRedirect(true);

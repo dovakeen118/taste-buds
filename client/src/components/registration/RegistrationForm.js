@@ -79,14 +79,12 @@ const RegistrationForm = () => {
             const newServerErrors = translateServerErrors(errorBody.errors);
             setServerErrors(newServerErrors);
           }
-          const errorMessage = `${response.status} (${response.statusText})`;
-          const error = new Error(errorMessage);
-          throw error;
+          throw new Error(`${response.status} (${response.statusText})`);
         }
         const userData = await response.json();
         setShouldRedirect(true);
       } catch (err) {
-        console.error(`Error in fetch for registration: ${err.message}`);
+        console.error(`Error in fetch for Registration: ${err.message}`);
       }
     }
   };

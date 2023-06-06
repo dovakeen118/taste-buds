@@ -5,6 +5,7 @@ import { hot } from "react-hot-loader/root";
 import getCurrentUser from "../services/getCurrentUser";
 
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute";
+import RecipeDetails from "./recipes/RecipeDetails";
 import RecipeForm from "./recipes/RecipeForm";
 import RecipeList from "./recipes/RecipeList";
 import RegistrationForm from "./registration/RegistrationForm";
@@ -35,6 +36,7 @@ const App = (props) => {
         <Switch>
           <Route exact path="/" component={RecipeList} />
           <AuthenticatedRoute exact path="/recipes/new" component={RecipeForm} user={currentUser} />
+          <Route exact path="/recipes/:id" component={RecipeDetails} />
           <Route exact path="/users/new" component={RegistrationForm} />
           <Route exact path="/user-sessions/new" component={SignInForm} />
         </Switch>

@@ -95,10 +95,10 @@ const RecipeForm = (props) => {
   }
 
   return (
-    <div className="callout primary">
+    <>
       <h1>What's cookin', good lookin'?</h1>
       <ErrorList errors={errors} />
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="callout primary">
         <div>
           <label htmlFor="name">
             Recipe name {errors["Name"] ? <span>*</span> : null}
@@ -107,12 +107,12 @@ const RecipeForm = (props) => {
         </div>
 
         <div className="grid-x grid-margin-x">
-          <div className="cell small-6">
+          <div className="cell small-6 callout">
             Typical meal {errors["Meal"] ? <span>*</span> : null}
             <div className="grid-x">{mealOptions}</div>
           </div>
 
-          <div className="cell small-6">
+          <div className="cell small-6 callout">
             Tier for time? {errors["Tier"] ? <span>*</span> : null}
             {tierOptions}
           </div>
@@ -184,7 +184,7 @@ const RecipeForm = (props) => {
           </button>
         </div>
       </form>
-    </div>
+    </>
   );
 };
 

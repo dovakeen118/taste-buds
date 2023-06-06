@@ -18,6 +18,17 @@ recipesRouter.get("/", async (req, res) => {
   }
 });
 
+recipesRouter.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const recipe = await Recipe.query().findById(id);
+    const serializedRecipe = RecipeSerializer.getDetails(recipe);
+    return res.status(200).json({ recipe: serializedRecipe });
+  } catch (error) {
+    return res.status(500).json({ errors: error });
+  }
+});
+
 recipesRouter.post("/", async (req, res) => {
   const { name, meal, tier, servings, leftovers, prepTime, cookTime } = req.body;
   const userId = req.user.id;

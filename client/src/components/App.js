@@ -4,6 +4,7 @@ import { hot } from "react-hot-loader/root";
 
 import getCurrentUser from "../services/getCurrentUser";
 
+import RecipeList from "./recipes/RecipeList";
 import RegistrationForm from "./registration/RegistrationForm";
 import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
@@ -28,13 +29,13 @@ const App = (props) => {
   return (
     <Router>
       <TopBar user={currentUser} />
-      <Switch>
-        <Route exact path="/">
-          <h2>Hello from react</h2>
-        </Route>
-        <Route exact path="/users/new" component={RegistrationForm} />
-        <Route exact path="/user-sessions/new" component={SignInForm} />
-      </Switch>
+      <div className="grid-container">
+        <Switch>
+          <Route exact path="/" component={RecipeList} />
+          <Route exact path="/users/new" component={RegistrationForm} />
+          <Route exact path="/user-sessions/new" component={SignInForm} />
+        </Switch>
+      </div>
     </Router>
   );
 };

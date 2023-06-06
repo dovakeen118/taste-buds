@@ -7,15 +7,13 @@ const SignOutButton = () => {
     event.preventDefault();
     try {
       const response = await fetch("/api/v1/user-sessions", {
-        method: "delete",
+        method: "DELETE",
         headers: new Headers({
           "Content-Type": "application/json",
         }),
       });
       if (!response.ok) {
-        const errorMessage = `${response.status} (${response.statusText})`;
-        const error = new Error(errorMessage);
-        throw error;
+        throw new Error(`${response.status} (${response.statusText})`);
       }
       const responseBody = await response.json();
       setShouldRedirect(true);

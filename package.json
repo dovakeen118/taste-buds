@@ -1,0 +1,22 @@
+{
+  "type": "module",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client",
+    "e2e"
+  ],
+  "scripts": {
+    "build:client": "yarn workspace taste-buds-client build",
+    "dev": "yarn workspace taste-buds-server dev",
+    "dev:debug": "yarn workspace taste-buds-server dev:debug",
+    "heroku-postbuild": "yarn workspace taste-buds-client build",
+    "start": "yarn workspace taste-buds-server start",
+    "dev:cypress": "yarn workspace taste-buds-server dev:e2e",
+    "e2e:open": "yarn workspace taste-buds-e2e e2e:open",
+    "e2e:run": "yarn workspace taste-buds-e2e e2e:run"
+  },
+  "engines": {
+    "node": "^16.18"
+  }
+}

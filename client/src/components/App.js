@@ -4,6 +4,8 @@ import { hot } from "react-hot-loader/root";
 
 import getCurrentUser from "../services/getCurrentUser";
 
+import AuthenticatedRoute from "./authentication/AuthenticatedRoute";
+import RecipeForm from "./recipes/RecipeForm";
 import RecipeList from "./recipes/RecipeList";
 import RegistrationForm from "./registration/RegistrationForm";
 import SignInForm from "./authentication/SignInForm";
@@ -32,6 +34,7 @@ const App = (props) => {
       <div className="grid-container">
         <Switch>
           <Route exact path="/" component={RecipeList} />
+          <AuthenticatedRoute exact path="/recipes/new" component={RecipeForm} user={currentUser} />
           <Route exact path="/users/new" component={RegistrationForm} />
           <Route exact path="/user-sessions/new" component={SignInForm} />
         </Switch>

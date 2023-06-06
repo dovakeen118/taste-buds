@@ -11,7 +11,7 @@ class Recipe extends Model {
       required: ["name", "leftovers", "meal", "tier"],
       properties: {
         name: { type: "string" },
-        leftovers: { type: "boolean" },
+        leftovers: { type: ["boolean", "string"] },
         meal: { type: "string", enum: ["breakfast", "lunch", "dinner", "snack", "dessert"] },
         tier: { type: "string", enum: ["quick", "average", "extended"] },
         servings: { type: ["integer", "string"] },

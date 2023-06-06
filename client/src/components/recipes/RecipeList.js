@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import RecipeTile from "./RecipeTile";
 
@@ -29,6 +30,7 @@ const RecipeList = () => {
   return (
     <>
       <h1>Taste Buds Recipes</h1>
+      <Link to="/recipes/new">Want to add your own?</Link>
       <div className="grid-x grid-margin-x">{recipeTiles}</div>
     </>
   );

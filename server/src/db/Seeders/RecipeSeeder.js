@@ -26,14 +26,19 @@ class RecipeSeeder {
         tier: "extended",
         userId: exampleUser.id,
       },
+      {
+        name: "Stir Fry",
+        meal: "dinner",
+        leftovers: true,
+        tier: "extended",
+        userId: exampleUser.id,
+      },
     ];
 
     let seededCount = 0;
     for (const recipe of recipes) {
       const recipeRecord = await Recipe.query().findOne({
         name: recipe.name,
-        meal: recipe.meal,
-        tier: recipe.tier,
       });
       if (!recipeRecord) {
         if (await Recipe.query().insert(recipe)) {

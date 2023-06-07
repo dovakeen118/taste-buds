@@ -1,5 +1,7 @@
 // include all of your models here using CommonJS requires
+const Ingredient = require("./Ingredient.js");
+const Measurement = require("./Measurement");
 const Recipe = require("./Recipe.js");
 const User = require("./User.js");
 
-module.exports = { Recipe, User };
+module.exports = { Ingredient, Measurement, Recipe, User };

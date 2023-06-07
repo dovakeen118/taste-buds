@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const tableName = "recipes";
+const tableName = "measurements";
 
 /**
  * @typedef {import("knex")} Knex
@@ -15,14 +15,16 @@ exports.up = async (knex) => {
     console.log(`Creating ${tableName}`);
     return knex.schema.createTable(tableName, (table) => {
       table.bigIncrements("id");
-      table.string("name").notNullable();
-      table.enu("meal", ["breakfast", "lunch", "dinner", "snack", "dessert"]).notNullable();
-      table.enu("tier", ["quick", "average", "extended"]).notNullable();
-      table.boolean("leftovers").notNullable();
-      table.integer("servings");
-      table.integer("prepTime");
-      table.integer("cookTime");
-      table.bigInteger("userId").notNullable().index().unsigned().references("users.id");
+      table.decimal("amount").notNullable();
+      table.string("unit").notNullable();
+      table.string("description");
+      table
+        .bigInteger("ingredientId")
+        .notNullable()
+        .index()
+        .unsigned()
+        .references("ingredients.id");
+      table.bigInteger("recipeId").notNullable().index().unsigned().references("recipes.id");
       table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now());
       table.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now());
     });

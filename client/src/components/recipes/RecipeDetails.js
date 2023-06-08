@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import MeasurementIngredientList from "../measurements/MeasurementIngredientList";
+import MeasurementIngredientList from "../ingredients/MeasurementIngredientList";
 
 const RecipeList = (props) => {
   const [recipe, setRecipe] = useState({ measurements: [] });

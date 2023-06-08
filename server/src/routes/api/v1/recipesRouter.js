@@ -3,7 +3,7 @@ import { ValidationError } from "objection";
 
 import cleanUserInput from "../../../services/cleanUserInput.js";
 
-import { Recipe } from "../../../models/index.js";
+import { Recipe, Ingredient, Measurement } from "../../../models/index.js";
 import RecipeSerializer from "../../../serializers/RecipeSerializer.js";
 
 const recipesRouter = new express.Router();
@@ -31,10 +31,10 @@ recipesRouter.get("/:id", async (req, res) => {
 });
 
 recipesRouter.post("/", async (req, res) => {
-  const { name, meal, tier, servings, leftovers, prepTime, cookTime } = req.body;
+  const { name, meal, tier, servings, leftovers, prepTime, cookTime, ingredients } = req.body;
   const userId = req.user.id;
   try {
-    const cleanedInput = cleanUserInput({
+    const cleanedRecipeInput = cleanUserInput({
       name,
       meal,
       tier,
@@ -43,8 +43,32 @@ recipesRouter.post("/", async (req, res) => {
       prepTime,
       cookTime,
     });
-    const recipe = await Recipe.query().insertAndFetch({ ...cleanedInput, userId });
-    const serializedRecipe = RecipeSerializer.getDetails(recipe);
+    const createdRecipe = await Recipe.transaction(async (trx) => {
+      const recipe = await Recipe.query(trx).insertAndFetch({ ...cleanedRecipeInput, userId });
+      if (ingredients) {
+        for (const ingredient of ingredients) {
+          const { name: ingredientName, amount, unit, description } = cleanUserInput(ingredient);
+          const foundIngredient =
+            (await Ingredient.query(trx)
+              .findOne({
+                name: ingredientName,
+              })
+              .skipUndefined()) ||
+            (await Ingredient.query(trx).insertAndFetch({ name: ingredientName }));
+          await Measurement.query(trx).insert({
+            recipeId: recipe.id,
+            ingredientId: foundIngredient.id,
+            amount,
+            unit,
+            description,
+          });
+        }
+      }
+
+      return recipe;
+    });
+
+    const serializedRecipe = RecipeSerializer.getDetails(createdRecipe);
     return res.status(201).json({ recipe: serializedRecipe });
   } catch (error) {
     if (error instanceof ValidationError) {

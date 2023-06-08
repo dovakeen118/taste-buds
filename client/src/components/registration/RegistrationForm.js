@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import config from "../../config";
 import translateServerErrors from "../../services/translateServerErrors";
+import registrationFormValidation from "../../services/validations/registrationFormValidation";
 
 import ErrorList from "../layout/ErrorList";
 import FormError from "../layout/FormError";
@@ -16,55 +16,11 @@ const RegistrationForm = () => {
   const [errors, setErrors] = useState({});
   const [serverErrors, setServerErrors] = useState({});
 
-  const validateInput = (payload) => {
-    setErrors({});
-    const { email, password, passwordConfirmation } = payload;
-    const emailRegexp = config.validation.email.regexp.emailRegex;
-    let newErrors = {};
-    if (!email.match(emailRegexp)) {
-      newErrors = {
-        ...newErrors,
-        email: "is invalid",
-      };
-    }
-
-    if (password.trim() == "") {
-      newErrors = {
-        ...newErrors,
-        password: "is required",
-      };
-    } else if (password.trim().length < 6) {
-      newErrors = {
-        ...newErrors,
-        password: "must be at least 6 characters",
-      };
-    }
-
-    if (passwordConfirmation.trim() === "") {
-      newErrors = {
-        ...newErrors,
-        passwordConfirmation: "is required",
-      };
-    } else if (passwordConfirmation !== password) {
-      newErrors = {
-        ...newErrors,
-        passwordConfirmation: "does not match password",
-      };
-    }
-
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length === 0) {
-      return true;
-    }
-    return false;
-  };
-
   const onSubmit = async (event) => {
     event.preventDefault();
     setServerErrors({});
 
-    if (validateInput(userPayload)) {
+    if (registrationFormValidation({ payload: userPayload, setErrors })) {
       try {
         const response = await fetch("/api/v1/users", {
           method: "POST",

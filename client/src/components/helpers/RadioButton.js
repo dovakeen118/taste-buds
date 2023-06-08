@@ -1,17 +1,17 @@
 import React from "react";
 
-const RadioButton = ({ name, data, handleChange, checked, labelClassName }) => {
+const RadioButton = ({ name, value, labelText, handleChange, checked, labelClassName }) => {
   return (
-    <label key={data} className={labelClassName} htmlFor={name}>
+    <label key={value} className={labelClassName} htmlFor={name}>
       <input
         type="radio"
         id={name}
         name={name}
         onChange={handleChange}
-        value={data}
+        value={value}
         checked={checked}
       />
-      {data}
+      {labelText || value}
     </label>
   );
 };

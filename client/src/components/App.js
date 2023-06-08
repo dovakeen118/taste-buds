@@ -11,6 +11,7 @@ import RecipeList from "./recipes/RecipeList";
 import RegistrationForm from "./registration/RegistrationForm";
 import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
+import UserProfile from "./profile/UserProfile";
 
 import "../assets/scss/main.scss";
 
@@ -36,6 +37,7 @@ const App = (props) => {
         <Switch>
           <Route exact path="/" component={RecipeList} />
           <AuthenticatedRoute exact path="/recipes/new" component={RecipeForm} user={currentUser} />
+          <AuthenticatedRoute exact path="/profile" component={UserProfile} user={currentUser} />
           <Route exact path="/recipes/:id" component={RecipeDetails} />
           <Route exact path="/users/new" component={RegistrationForm} />
           <Route exact path="/user-sessions/new" component={SignInForm} />

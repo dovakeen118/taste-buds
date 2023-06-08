@@ -2,17 +2,13 @@ import MeasurementSerializer from "./MeasurementSerializer.js";
 
 class RecipeSerializer {
   static getList(recipes) {
-    const serializedRecipes = recipes.map((recipe) => this.getDetails(recipe));
-
-    return serializedRecipes;
+    return recipes.map((recipe) => this.getDetails(recipe));
   }
 
   static async getShowDetails(recipe) {
     const serializedRecipe = this.getDetails(recipe);
     const measurements = await recipe.$relatedQuery("measurements");
-    const serializedMeasurements = await MeasurementSerializer.getRecipeList(measurements);
-    serializedRecipe.measurements = serializedMeasurements;
-
+    serializedRecipe.measurements = await MeasurementSerializer.getRecipeList(measurements);
     return serializedRecipe;
   }
 

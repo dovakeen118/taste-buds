@@ -12,8 +12,7 @@ class MeasurementSerializer {
   static async getRecipeDetails(measurement) {
     const serializedMeasurement = this.getDetails(measurement);
     const ingredient = await measurement.$relatedQuery("ingredient");
-    const serializedIngredient = IngredientSerializer.getDetails(ingredient);
-    serializedMeasurement.ingredient = serializedIngredient;
+    serializedMeasurement.ingredient = IngredientSerializer.getDetails(ingredient);
     return serializedMeasurement;
   }
 

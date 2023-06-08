@@ -2,8 +2,19 @@ import express from "express";
 import { ValidationError } from "objection";
 
 import { User } from "../../../models/index.js";
+import UserSerializer from "../../../serializers/userSerializer.js";
 
 const usersRouter = new express.Router();
+
+usersRouter.get("/:id", async (req, res) => {
+  const { user } = req;
+  try {
+    const serializedUser = await UserSerializer.getProfileDetails(user);
+    return res.status(200).json({ user: serializedUser });
+  } catch (error) {
+    return res.status(500).json({ errors: error });
+  }
+});
 
 usersRouter.post("/", async (req, res) => {
   const { email, password } = req.body;

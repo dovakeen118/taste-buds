@@ -1,4 +1,5 @@
 import MeasurementSerializer from "./MeasurementSerializer.js";
+import StepSerializer from "./StepSerializer.js";
 
 class RecipeSerializer {
   static getList(recipes) {
@@ -8,7 +9,11 @@ class RecipeSerializer {
   static async getShowDetails(recipe) {
     const serializedRecipe = this.getDetails(recipe);
     const measurements = await recipe.$relatedQuery("measurements");
+    const steps = await recipe.$relatedQuery("steps");
+
     serializedRecipe.measurements = await MeasurementSerializer.getRecipeList(measurements);
+    serializedRecipe.steps = StepSerializer.getList(steps);
+
     return serializedRecipe;
   }
 

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 
 import MeasurementIngredientList from "../ingredients/MeasurementIngredientList";
+import StepList from "../steps/StepsList";
 
 const RecipeList = (props) => {
-  const [recipe, setRecipe] = useState({ measurements: [] });
+  const [recipe, setRecipe] = useState({ measurements: [], steps: [] });
 
   const getRecipe = async () => {
     const { id } = props.match.params;
@@ -41,7 +42,10 @@ const RecipeList = (props) => {
         </ul>
       </div>
 
-      <MeasurementIngredientList measurements={recipe.measurements} />
+      <div className="grid-x">
+        <MeasurementIngredientList measurements={recipe.measurements} />
+        <StepList steps={recipe.steps} />
+      </div>
     </>
   );
 };

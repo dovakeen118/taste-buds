@@ -23,6 +23,7 @@ const recipeFormValidation = ({ payload, setErrors }) => {
       Tier: "is required",
     };
   }
+
   payload.ingredients.forEach((ingredient, index) => {
     if (ingredient.name.trim() === "") {
       newErrors = {
@@ -40,6 +41,15 @@ const recipeFormValidation = ({ payload, setErrors }) => {
       newErrors = {
         ...newErrors,
         [`Ingredient ${index + 1} Unit`]: "is required",
+      };
+    }
+  });
+
+  payload.steps.forEach((step, index) => {
+    if (step.body.trim() === "") {
+      newErrors = {
+        ...newErrors,
+        [`Step ${index + 1} Body`]: "is required",
       };
     }
   });

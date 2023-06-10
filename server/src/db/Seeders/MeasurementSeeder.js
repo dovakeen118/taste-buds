@@ -5,6 +5,7 @@ class MeasurementSeeder {
     const broccoli = await Ingredient.query().findOne({ name: "broccoli" });
     const chicken = await Ingredient.query().findOne({ name: "chicken" });
     const rice = await Ingredient.query().findOne({ name: "rice" });
+    const cheese = await Ingredient.query().findOne({ name: "cheese" });
     const casserole = await Recipe.query().findOne({ name: "Broccoli Casserole" });
     const stirFry = await Recipe.query().findOne({ name: "Stir Fry" });
 
@@ -26,6 +27,13 @@ class MeasurementSeeder {
         unit: "cup",
         description: "uncooked",
         ingredientId: rice.id,
+        recipeId: casserole.id,
+      },
+      {
+        amount: 1,
+        unit: "cup",
+        description: "grated",
+        ingredientId: cheese.id,
         recipeId: casserole.id,
       },
       {

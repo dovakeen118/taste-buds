@@ -68,8 +68,12 @@ const IngredientFormFields = ({
         </label>
       </div>
 
-      {numIngredients > 1 ? (
-        <button type="button" onClick={() => handleRemoveIngredient(index)} className="button">
+      {numIngredients ? (
+        <button
+          type="button"
+          onClick={() => handleRemoveIngredient(index)}
+          className="button alert"
+        >
           Remove
         </button>
       ) : null}

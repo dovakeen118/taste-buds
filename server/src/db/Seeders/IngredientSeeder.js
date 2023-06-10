@@ -12,6 +12,9 @@ class IngredientSeeder {
       {
         name: "broccoli",
       },
+      {
+        name: "cheese",
+      },
     ];
 
     let seededCount = 0;

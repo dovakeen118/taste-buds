@@ -8,9 +8,10 @@ class Step extends Model {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["body"],
+      required: ["body", "step"],
       properties: {
         body: { type: "string" },
+        step: { anyOf: [{ type: "integer", minimum: 0 }, { type: "string" }] },
       },
     };
   }

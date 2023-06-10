@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
+import { Redirect, useParams } from "react-router-dom";
 
-import MeasurementIngredientList from "../ingredients/MeasurementIngredientList";
-import StepList from "../steps/StepsList";
+import { MeasurementIngredientList } from "../ingredients/MeasurementIngredientList";
+import { StepList } from "../steps/StepsList";
+import { FavoriteIcon } from "./FavoriteIcon";
 
-const RecipeList = (props) => {
+export const RecipeDetails = ({ user }) => {
   const [recipe, setRecipe] = useState({ measurements: [], steps: [] });
+  const [notFound, setNotFound] = useState(false);
 
+  const { id } = useParams();
   const getRecipe = async () => {
-    const { id } = props.match.params;
     try {
       const response = await fetch(`/api/v1/recipes/${id}`);
       if (!response.ok) {
+        if (response.status === 404) {
+          setNotFound(true);
+        }
         throw new Error(`${response.status} (${response.statusText})`);
       }
       const responseBody = await response.json();
@@ -24,9 +30,21 @@ const RecipeList = (props) => {
     getRecipe();
   }, []);
 
+  if (notFound) {
+    return <Redirect to="/" />;
+  }
+
   return (
     <>
-      <h1>{recipe.name}</h1>
+      <h1 className="text-center">
+        {recipe.name}{" "}
+        <FavoriteIcon
+          favorite={recipe.favorite}
+          recipeUserId={recipe.userId}
+          setRecipe={setRecipe}
+          user={user}
+        />
+      </h1>
       <div className="callout primary">
         <div className="grid-x callout">
           <ul className="cell medium-4">
@@ -51,5 +69,3 @@ const RecipeList = (props) => {
     </>
   );
 };
-
-export default RecipeList;

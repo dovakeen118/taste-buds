@@ -27,6 +27,8 @@ class RecipeSerializer {
       "servings",
       "prepTime",
       "cookTime",
+      "favorite",
+      "userId",
       "updatedAt",
     ];
 

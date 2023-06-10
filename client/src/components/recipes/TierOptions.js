@@ -1,8 +1,8 @@
 import React from "react";
 
-import RadioButton from "../helpers/RadioButton";
+import { RadioButton } from "../helpers/RadioButton";
 
-const TierOptions = ({ handleChange, recipeTier }) => {
+export const TierOptions = ({ handleChange, recipeTier }) => {
   const tiers = [
     { name: "quick", description: "< 10" },
     { name: "average", description: "10 - 20" },
@@ -22,5 +22,3 @@ const TierOptions = ({ handleChange, recipeTier }) => {
   });
   return <div>{tierOptions}</div>;
 };
-
-export default TierOptions;

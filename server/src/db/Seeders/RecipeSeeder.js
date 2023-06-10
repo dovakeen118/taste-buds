@@ -3,6 +3,7 @@ import { Recipe, User } from "../../models/index.js";
 class RecipeSeeder {
   static async seed() {
     const exampleUser = await User.query().findOne({ email: "user@example.com" });
+    const example1User = await User.query().findOne({ email: "user1@example.com" });
 
     const recipes = [
       {
@@ -17,6 +18,7 @@ class RecipeSeeder {
         meal: "dinner",
         leftovers: true,
         tier: "average",
+        favorite: true,
         userId: exampleUser.id,
       },
       {
@@ -24,6 +26,7 @@ class RecipeSeeder {
         meal: "dinner",
         leftovers: true,
         tier: "extended",
+        favorite: true,
         userId: exampleUser.id,
       },
       {
@@ -31,7 +34,7 @@ class RecipeSeeder {
         meal: "dinner",
         leftovers: true,
         tier: "extended",
-        userId: exampleUser.id,
+        userId: example1User.id,
       },
     ];
 

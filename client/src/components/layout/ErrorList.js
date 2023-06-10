@@ -1,6 +1,6 @@
 import React from "react";
 
-const ErrorList = (props) => {
+export const ErrorList = (props) => {
   const errantFields = Object.keys(props.errors);
   if (errantFields.length > 0) {
     let index = 0;
@@ -21,5 +21,3 @@ const ErrorList = (props) => {
     return "";
   }
 };
-
-export default ErrorList;

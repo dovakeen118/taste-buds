@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import RecipeTile from "./RecipeTile";
+import { RecipeTile } from "./RecipeTile";
 
-const RecipeList = () => {
+export const RecipeList = () => {
   const [recipes, setRecipes] = useState([]);
 
   const getRecipes = async () => {
@@ -29,11 +31,16 @@ const RecipeList = () => {
 
   return (
     <>
-      <h1>Taste Buds Recipes</h1>
-      <Link to="/recipes/new">Want to add your own?</Link>
+      <div className="grid-x">
+        <h1 className="cell small-6">Taste Buds Recipes</h1>
+        <p className="cell small-6 new-recipe-button">
+          Add your own recipe?
+          <Link to="/recipes/new" className="button">
+            <FontAwesomeIcon icon={faPlus} />
+          </Link>
+        </p>
+      </div>
       <div className="grid-x grid-margin-x callout secondary">{recipeTiles}</div>
     </>
   );
 };
-
-export default RecipeList;

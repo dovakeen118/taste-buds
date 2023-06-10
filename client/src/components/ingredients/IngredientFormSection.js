@@ -1,8 +1,8 @@
 import React from "react";
 
-import IngredientFormFields from "./IngredientFormFields";
+import { IngredientFormFields } from "./IngredientFormFields";
 
-const IngredientFormSection = ({
+export const IngredientFormSection = ({
   addToArray,
   defaultIngredient,
   errors,
@@ -38,5 +38,3 @@ const IngredientFormSection = ({
     </div>
   );
 };
-
-export default IngredientFormSection;

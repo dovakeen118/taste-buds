@@ -4,13 +4,13 @@ import { Redirect } from "react-router-dom";
 import translateServerErrors from "../../services/translateServerErrors";
 import recipeFormValidation from "../../services/validations/recipeFormValidation";
 
-import ErrorList from "../layout/ErrorList";
-import MealOptions from "./MealOptions";
-import TierOptions from "./TierOptions";
-import IngredientFormSection from "../ingredients/IngredientFormSection";
-import StepFormSection from "../steps/StepFormSection";
+import { ErrorList } from "../layout/ErrorList";
+import { MealOptions } from "./MealOptions";
+import { TierOptions } from "./TierOptions";
+import { IngredientFormSection } from "../ingredients/IngredientFormSection";
+import { StepFormSection } from "../steps/StepFormSection";
 
-const RecipeForm = (props) => {
+export const RecipeForm = (props) => {
   const defaultIngredient = { name: "", amount: "", unit: "", description: "" };
   const defaultStep = { body: "" };
   const defaultFormState = {
@@ -133,7 +133,14 @@ const RecipeForm = (props) => {
         <div>
           <label htmlFor="name">
             Recipe name {errors["Name"] ? <span>*</span> : null}
-            <input type="text" id="name" name="name" onChange={handleChange} value={recipe.name} />
+            <input
+              type="text"
+              id="name"
+              name="name"
+              onChange={handleChange}
+              value={recipe.name}
+              className="input-field"
+            />
           </label>
         </div>
 
@@ -170,6 +177,7 @@ const RecipeForm = (props) => {
               onChange={handleChange}
               value={recipe.servings}
               min={0}
+              className="input-field"
             />
           </label>
 
@@ -182,6 +190,7 @@ const RecipeForm = (props) => {
               onChange={handleChange}
               value={recipe.prepTime}
               min={0}
+              className="input-field"
             />
           </label>
 
@@ -194,6 +203,7 @@ const RecipeForm = (props) => {
               onChange={handleChange}
               value={recipe.cookTime}
               min={0}
+              className="input-field"
             />
           </label>
         </div>
@@ -227,5 +237,3 @@ const RecipeForm = (props) => {
     </>
   );
 };
-
-export default RecipeForm;

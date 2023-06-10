@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import RecipeTile from "../recipes/RecipeTile";
+import { RecipeTile } from "../recipes/RecipeTile";
 
-const UserProfile = (props) => {
+export const UserProfile = (props) => {
   const [user, setUser] = useState({ recipes: [] });
 
   const getUser = async () => {
@@ -29,11 +29,9 @@ const UserProfile = (props) => {
   return (
     <>
       <h1>{user.email}</h1>
-      <p>User since {user.createdAt}</p>
+      <p>User since {new Date(user.createdAt).toLocaleString()}</p>
       <h3>Your recipes</h3>
       <ul className="grid-x grid-margin-x callout secondary">{recipes}</ul>
     </>
   );
 };
-
-export default UserProfile;

@@ -1,6 +1,6 @@
 import React from "react";
 
-const IngredientFormFields = ({
+export const IngredientFormFields = ({
   ingredient,
   handleIngredientChange,
   handleRemoveIngredient,
@@ -19,6 +19,7 @@ const IngredientFormFields = ({
             name="name"
             value={ingredient.name}
             onChange={handleIngredientChange}
+            className="input-field"
           />
         </label>
 
@@ -30,6 +31,7 @@ const IngredientFormFields = ({
             name="description"
             value={ingredient.description}
             onChange={handleIngredientChange}
+            className="input-field"
           />
         </label>
       </div>
@@ -45,12 +47,19 @@ const IngredientFormFields = ({
             onChange={handleIngredientChange}
             min={0}
             step={0.01}
+            className="input-field"
           />
         </label>
 
         <label htmlFor="unit" className="cell small-6">
           Units {errors[`Ingredient ${index + 1} Unit`] ? <span>*</span> : null}
-          <select id="unit" name="unit" value={ingredient.unit} onChange={handleIngredientChange}>
+          <select
+            id="unit"
+            name="unit"
+            value={ingredient.unit}
+            onChange={handleIngredientChange}
+            className="input-field"
+          >
             <option value="select"> -- select an option -- </option>
             <option value="tsp">Teaspoon(s)</option>
             <option value="tbsp">Tablespoon(s)</option>
@@ -80,5 +89,3 @@ const IngredientFormFields = ({
     </div>
   );
 };
-
-export default IngredientFormFields;

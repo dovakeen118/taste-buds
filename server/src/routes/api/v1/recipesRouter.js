@@ -1,5 +1,5 @@
 import express from "express";
-import { ValidationError } from "objection";
+import { NotFoundError, ValidationError } from "objection";
 
 import cleanUserInput from "../../../services/cleanUserInput.js";
 
@@ -21,11 +21,14 @@ recipesRouter.get("/", async (req, res) => {
 recipesRouter.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const recipe = await Recipe.query().findById(id);
+    const recipe = await Recipe.query().findById(id).throwIfNotFound();
     const serializedRecipe = await RecipeSerializer.getShowDetails(recipe);
 
     return res.status(200).json({ recipe: serializedRecipe });
   } catch (error) {
+    if (error instanceof NotFoundError) {
+      return res.status(404).json({ errors: error.data });
+    }
     return res.status(500).json({ errors: error });
   }
 });
@@ -75,6 +78,27 @@ recipesRouter.post("/", async (req, res) => {
 
     const serializedRecipe = RecipeSerializer.getDetails(createdRecipe);
     return res.status(201).json({ recipe: serializedRecipe });
+  } catch (error) {
+    if (error instanceof ValidationError) {
+      return res.status(422).json({ errors: error.data });
+    }
+    return res.status(500).json({ errors: error });
+  }
+});
+
+recipesRouter.patch("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const recipe = await Recipe.query().findById(id);
+    if (req.user && req.user.id === recipe.userId) {
+      const { favorite } = req.body;
+      const cleanedInput = cleanUserInput(favorite);
+      const updatedRecipe = await Recipe.query().patchAndFetchById(id, { favorite: cleanedInput });
+      const serializedRecipe = await RecipeSerializer.getShowDetails(updatedRecipe);
+      return res.status(200).json({ recipe: serializedRecipe });
+    } else {
+      return res.status(401).json({ message: "this must be your recipe" });
+    }
   } catch (error) {
     if (error instanceof ValidationError) {
       return res.status(422).json({ errors: error.data });

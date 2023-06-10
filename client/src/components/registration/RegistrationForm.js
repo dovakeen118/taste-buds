@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSeedling } from "@fortawesome/free-solid-svg-icons";
 
 import translateServerErrors from "../../services/translateServerErrors";
 import registrationFormValidation from "../../services/validations/registrationFormValidation";
 
-import ErrorList from "../layout/ErrorList";
-import FormError from "../layout/FormError";
+import { ErrorList } from "../layout/ErrorList";
+import { FormError } from "../layout/FormError";
 
-const RegistrationForm = () => {
+export const RegistrationForm = () => {
   const [userPayload, setUserPayload] = useState({
     email: "",
     password: "",
@@ -58,13 +60,21 @@ const RegistrationForm = () => {
 
   return (
     <div className="grid-container">
-      <h1>Register</h1>
+      <h1 className="text-center">
+        Join Taste Buds <FontAwesomeIcon icon={faSeedling} className="bud" />
+      </h1>
       <ErrorList errors={serverErrors} />
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className="passport-form callout secondary">
         <div>
           <label>
             Email
-            <input type="text" name="email" value={userPayload.email} onChange={onInputChange} />
+            <input
+              type="text"
+              name="email"
+              value={userPayload.email}
+              onChange={onInputChange}
+              className="input-field"
+            />
             <FormError error={errors.email} />
           </label>
         </div>
@@ -76,6 +86,7 @@ const RegistrationForm = () => {
               name="password"
               value={userPayload.password}
               onChange={onInputChange}
+              className="input-field"
             />
             <FormError error={errors.password} />
           </label>
@@ -88,11 +99,12 @@ const RegistrationForm = () => {
               name="passwordConfirmation"
               value={userPayload.passwordConfirmation}
               onChange={onInputChange}
+              className="input-field"
             />
             <FormError error={errors.passwordConfirmation} />
           </label>
         </div>
-        <div>
+        <div className="text-center">
           <input type="submit" className="button" value="Register" />
         </div>
       </form>

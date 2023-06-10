@@ -1,7 +1,8 @@
 @import "./foundation/settings";
 @import "~foundation-sites/scss/foundation";
 @include foundation-everything;
-// place global css here
+@import "./colors.scss";
+
 *,
 *::before,
 *::after {
@@ -13,6 +14,89 @@
   tab-size: 4;
 }
 
+body {
+  background-color: $white;
+}
+
+h1, h2, h3, h4, h5, h6, p, li, label, input, select {
+  color: $grey;
+}
+
+input[type="checkbox"], input[type="radio"] {
+  accent-color: $teal;
+}
+
+
+.button, .button:focus {
+  background-color: $teal;
+  border-radius: 25px;
+  font-weight: bold;
+}
+
+.button:hover {
+  background-color: $light-green;
+}
+
+.callout {
+  background-color: $white;
+  border-radius: 25px;
+}
+
+.top-bar {
+  background-color: $light-green;
+  margin-bottom: 5px;
+  font-weight: bold;
+  .menu {
+    background-color: $light-green;
+    color: $grey;
+  }
+
+  .link {
+    color: $white;
+  }
+}
+
+.input-field {
+  background-color: $white;
+  color: $grey;
+  border-radius: 25px;
+}
+
+.passport-form {
+  max-width: 75%;
+  display: block;
+  margin: auto;
+}
+
+.new-recipe-button {
+  text-align: right;
+  margin: auto;
+
+  .button {
+    vertical-align: baseline;
+    margin-left: 5px;
+  }
+}
+
 .recipe-column, .recipe-tile {
   height: fit-content;
+}
+
+.recipe-tile {
+  box-shadow: 3px 3px 5px $grey;
+}
+
+.recipe-tile:hover {
+  h3, h5 {
+    color: $teal;
+  }
+  box-shadow: 3px 3px 5px $teal;
+}
+
+.bud {
+  color: $teal;
+}
+
+.heart {
+  color: $pink;
 }

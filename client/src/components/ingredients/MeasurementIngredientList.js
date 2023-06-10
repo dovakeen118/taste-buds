@@ -1,6 +1,6 @@
 import React from "react";
 
-const MeasurementIngredientList = (props) => {
+export const MeasurementIngredientList = (props) => {
   const measurements = props.measurements.map((measurement) => {
     let measurementDescription = "";
     if (measurement.description) {
@@ -22,5 +22,3 @@ const MeasurementIngredientList = (props) => {
     </div>
   );
 };
-
-export default MeasurementIngredientList;

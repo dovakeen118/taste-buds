@@ -1,16 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-const RecipeTile = (props) => {
+export const RecipeTile = ({ recipe }) => {
   return (
-    <Link to={`/recipes/${props.recipe.id}`} className="cell medium-4 callout recipe-tile">
-      <h3>{props.recipe.name}</h3>
-      <ul>
-        <h4>Tier: {props.recipe.tier}</h4>
-        <h4>Meal: {props.recipe.meal}</h4>
-      </ul>
+    <Link to={`/recipes/${recipe.id}`} className="cell medium-4 callout recipe-tile">
+      <div className="grid-x">
+        <h3 className="cell small-11">{recipe.name}</h3>
+        {recipe.favorite ? <FontAwesomeIcon icon={faHeart} className="cell small-1 heart" /> : null}
+      </div>
+      <div>
+        <h5>Tier: {recipe.tier}</h5>
+        <h5>Meal: {recipe.meal}</h5>
+      </div>
     </Link>
   );
 };
-
-export default RecipeTile;

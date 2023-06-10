@@ -1,6 +1,6 @@
 import React from "react";
 
-const StepList = ({ steps }) => {
+export const StepList = ({ steps }) => {
   const stepTiles = steps.map((step) => {
     return <li key={step.id}>{step.body}</li>;
   });
@@ -12,5 +12,3 @@ const StepList = ({ steps }) => {
     </div>
   );
 };
-
-export default StepList;

@@ -1,8 +1,8 @@
 import React from "react";
 
-import RadioButton from "../helpers/RadioButton";
+import { RadioButton } from "../helpers/RadioButton";
 
-const MealOptions = ({ handleChange, recipeMeal }) => {
+export const MealOptions = ({ handleChange, recipeMeal }) => {
   const meals = ["breakfast", "snack", "lunch", "dessert", "dinner"];
   const mealOptions = meals.map((meal) => {
     return (
@@ -19,5 +19,3 @@ const MealOptions = ({ handleChange, recipeMeal }) => {
 
   return <div className="grid-x">{mealOptions}</div>;
 };
-
-export default MealOptions;

@@ -1,6 +1,6 @@
 import React from "react";
 
-const RadioButton = ({ name, value, labelText, handleChange, checked, labelClassName }) => {
+export const RadioButton = ({ name, value, labelText, handleChange, checked, labelClassName }) => {
   return (
     <label key={value} className={labelClassName} htmlFor={name}>
       <input
@@ -15,5 +15,3 @@ const RadioButton = ({ name, value, labelText, handleChange, checked, labelClass
     </label>
   );
 };
-
-export default RadioButton;

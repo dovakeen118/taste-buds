@@ -25,6 +25,9 @@ class Recipe extends Model {
         cookTime: {
           anyOf: [{ type: "integer", minimum: 0 }, { type: "string" }],
         },
+        favorite: {
+          anyOf: [{ type: "boolean" }, { type: "string" }],
+        },
       },
     };
   }

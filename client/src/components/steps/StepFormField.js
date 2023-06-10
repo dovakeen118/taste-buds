@@ -1,11 +1,24 @@
 import React from "react";
 
-const StepFormField = ({ step, handleStepChange, handleRemoveStep, numSteps, index, errors }) => {
+export const StepFormField = ({
+  step,
+  handleStepChange,
+  handleRemoveStep,
+  numSteps,
+  index,
+  errors,
+}) => {
   return (
     <div className="callout secondary">
       <label htmlFor="body">
         Step {index + 1} {errors[`Step ${index + 1} Body`] ? <span>*</span> : null}
-        <textarea id="body" name="body" value={step.body} onChange={handleStepChange} />
+        <textarea
+          id="body"
+          name="body"
+          value={step.body}
+          onChange={handleStepChange}
+          className="input-field"
+        />
       </label>
 
       {numSteps ? (
@@ -16,5 +29,3 @@ const StepFormField = ({ step, handleStepChange, handleRemoveStep, numSteps, ind
     </div>
   );
 };
-
-export default StepFormField;

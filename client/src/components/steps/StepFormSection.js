@@ -1,8 +1,8 @@
 import React from "react";
 
-import StepFormField from "./StepFormField";
+import { StepFormField } from "./StepFormField";
 
-const StepFormSection = ({
+export const StepFormSection = ({
   addToArray,
   defaultStep,
   errors,
@@ -34,5 +34,3 @@ const StepFormSection = ({
     </div>
   );
 };
-
-export default StepFormSection;

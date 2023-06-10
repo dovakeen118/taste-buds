@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const SignOutButton = () => {
+export const SignOutButton = () => {
   const [shouldRedirect, setShouldRedirect] = useState(false);
 
   const signOut = async (event) => {
@@ -33,5 +33,3 @@ const SignOutButton = () => {
     </button>
   );
 };
-
-export default SignOutButton;

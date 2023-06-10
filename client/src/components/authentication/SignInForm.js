@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 import signInFormValidation from "../../services/validations/signInFormValidation";
 
-import FormError from "../layout/FormError";
+import { FormError } from "../layout/FormError";
 
-const SignInForm = () => {
+export const SignInForm = () => {
   const [userPayload, setUserPayload] = useState({ email: "", password: "" });
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [errors, setErrors] = useState({});
@@ -49,15 +51,23 @@ const SignInForm = () => {
 
   return (
     <div className="grid-container">
-      <h1>Sign In</h1>
+      <h1 className="text-center">
+        Welcome back <FontAwesomeIcon icon={faHeart} className="heart" />
+      </h1>
 
       {credentialsErrors ? <p className="callout alert">{credentialsErrors}</p> : null}
 
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className="passport-form callout secondary">
         <div>
           <label>
             Email
-            <input type="text" name="email" value={userPayload.email} onChange={onInputChange} />
+            <input
+              type="text"
+              name="email"
+              value={userPayload.email}
+              onChange={onInputChange}
+              className="input-field"
+            />
             <FormError error={errors.email} />
           </label>
         </div>
@@ -69,16 +79,15 @@ const SignInForm = () => {
               name="password"
               value={userPayload.password}
               onChange={onInputChange}
+              className="input-field"
             />
             <FormError error={errors.password} />
           </label>
         </div>
-        <div>
+        <div className="text-center">
           <input type="submit" className="button" value="Sign In" />
         </div>
       </form>
     </div>
   );
 };
-
-export default SignInForm;

@@ -30,25 +30,9 @@ class Recipe extends Model {
   }
 
   static get relationMappings() {
-    const { Ingredient, User, Measurement } = require("./index");
+    const { Ingredient, Measurement, Step, User } = require("./index");
 
     return {
-      user: {
-        relation: Model.BelongsToOneRelation,
-        modelClass: User,
-        join: {
-          from: "recipes.userId",
-          to: "users.id",
-        },
-      },
-      measurements: {
-        relation: Model.HasManyRelation,
-        modelClass: Measurement,
-        join: {
-          from: "recipes.id",
-          to: "measurements.recipeId",
-        },
-      },
       ingredients: {
         relation: Model.ManyToManyRelation,
         modelClass: Ingredient,
@@ -59,6 +43,30 @@ class Recipe extends Model {
             to: "measurements.ingredientId",
           },
           to: "ingredients.id",
+        },
+      },
+      measurements: {
+        relation: Model.HasManyRelation,
+        modelClass: Measurement,
+        join: {
+          from: "recipes.id",
+          to: "measurements.recipeId",
+        },
+      },
+      steps: {
+        relation: Model.HasManyRelation,
+        modelClass: Step,
+        join: {
+          from: "recipes.id",
+          to: "steps.recipeId",
+        },
+      },
+      user: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: User,
+        join: {
+          from: "recipes.userId",
+          to: "users.id",
         },
       },
     };

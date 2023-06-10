@@ -14,10 +14,10 @@ const MeasurementIngredientList = (props) => {
   });
 
   return (
-    <>
+    <div className="cell medium-6">
       <h3>Ingredients</h3>
       <ul>{measurements}</ul>
-    </>
+    </div>
   );
 };
 

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const RecipeTile = (props) => {
   return (
-    <Link to={`/recipes/${props.recipe.id}`} className="cell small-4 callout">
+    <Link to={`/recipes/${props.recipe.id}`} className="cell medium-4 callout recipe-tile">
       <h3>{props.recipe.name}</h3>
       <ul>
         <h4>Tier: {props.recipe.tier}</h4>

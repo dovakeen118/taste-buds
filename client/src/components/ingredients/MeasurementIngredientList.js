@@ -6,7 +6,9 @@ const MeasurementIngredientList = (props) => {
     if (measurement.description) {
       measurementDescription = `, ${measurement.description}`;
     }
-    const output = `${Number(measurement.amount)} ${measurement.unit} ${
+    const measurementUnit = measurement.unit === "other" ? "" : measurement.unit;
+
+    const output = `${Number(measurement.amount)} ${measurementUnit} ${
       measurement.ingredient.name
     }${measurementDescription}`;
 
@@ -14,7 +16,7 @@ const MeasurementIngredientList = (props) => {
   });
 
   return (
-    <div className="cell medium-6">
+    <div className="cell medium-6 callout">
       <h3>Ingredients</h3>
       <ul>{measurements}</ul>
     </div>

@@ -6,7 +6,7 @@ const StepList = ({ steps }) => {
   });
 
   return (
-    <div className="cell medium-6">
+    <div className="cell medium-6 callout">
       <h3>Steps</h3>
       <ol>{stepTiles}</ol>
     </div>

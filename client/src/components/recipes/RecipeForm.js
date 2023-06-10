@@ -5,11 +5,14 @@ import translateServerErrors from "../../services/translateServerErrors";
 import recipeFormValidation from "../../services/validations/recipeFormValidation";
 
 import ErrorList from "../layout/ErrorList";
-import RadioButton from "../helpers/RadioButton";
-import IngredientFormFields from "../ingredients/IngredientFormFields";
+import MealOptions from "./MealOptions";
+import TierOptions from "./TierOptions";
+import IngredientFormSection from "../ingredients/IngredientFormSection";
+import StepFormSection from "../steps/StepFormSection";
 
 const RecipeForm = (props) => {
   const defaultIngredient = { name: "", amount: "", unit: "", description: "" };
+  const defaultStep = { body: "" };
   const defaultFormState = {
     name: "",
     meal: "",
@@ -19,6 +22,7 @@ const RecipeForm = (props) => {
     prepTime: "",
     cookTime: "",
     ingredients: [defaultIngredient],
+    steps: [defaultStep],
   };
   const [recipe, setRecipe] = useState(defaultFormState);
   const [errors, setErrors] = useState({});
@@ -28,6 +32,13 @@ const RecipeForm = (props) => {
     setRecipe({
       ...recipe,
       [event.currentTarget.name]: event.currentTarget.value,
+    });
+  };
+
+  const handleCheckChange = (event) => {
+    setRecipe({
+      ...recipe,
+      [event.currentTarget.name]: !recipe.leftovers,
     });
   };
 
@@ -45,25 +56,41 @@ const RecipeForm = (props) => {
     });
   };
 
-  const handleCheckChange = (event) => {
+  const handleStepChange = (event, index) => {
     setRecipe({
       ...recipe,
-      [event.currentTarget.name]: !recipe.leftovers,
+      steps: [
+        ...recipe.steps.slice(0, index),
+        {
+          ...recipe.steps[index],
+          [event.currentTarget.name]: event.currentTarget.value,
+        },
+        ...recipe.steps.slice(index + 1),
+      ],
     });
   };
 
-  const handleAddIngredient = (event) => {
+  const addToArray = (item, defaultItem) => {
     setRecipe({
       ...recipe,
-      ingredients: [...recipe.ingredients, defaultIngredient],
+      [item]: [...recipe[item], defaultItem],
     });
+  };
+
+  const removeItemAtIndex = (index, array) => {
+    return array.filter((_, i) => i !== index);
   };
 
   const handleRemoveIngredient = (index) => {
-    setRecipe({ ...recipe, ingredients: recipe.ingredients.filter((_, i) => i !== index) });
+    setRecipe({ ...recipe, ingredients: removeItemAtIndex(index, recipe.ingredients) });
+  };
+
+  const handleRemoveStep = (index) => {
+    setRecipe({ ...recipe, steps: removeItemAtIndex(index, recipe.steps) });
   };
 
   const handleClear = () => {
+    setErrors({});
     setRecipe(defaultFormState);
   };
 
@@ -94,52 +121,6 @@ const RecipeForm = (props) => {
     }
   };
 
-  const meals = ["breakfast", "snack", "lunch", "dessert", "dinner"];
-  const mealOptions = meals.map((meal) => {
-    return (
-      <RadioButton
-        key={meal}
-        name="meal"
-        value={meal}
-        handleChange={handleChange}
-        checked={recipe.meal === meal}
-        labelClassName="cell medium-6"
-      />
-    );
-  });
-
-  const tiers = [
-    { name: "quick", description: "< 10" },
-    { name: "average", description: "10 - 20" },
-    { name: "extended", description: "> 20" },
-  ];
-  const tierOptions = tiers.map((tier) => {
-    return (
-      <RadioButton
-        key={tier.name}
-        name="tier"
-        value={tier.name}
-        labelText={`${tier.name} ( ${tier.description} minutes )`}
-        handleChange={handleChange}
-        checked={recipe.tier === tier.name}
-      />
-    );
-  });
-
-  const ingredientFields = recipe.ingredients.map((ingredient, index) => {
-    return (
-      <IngredientFormFields
-        key={index}
-        ingredient={ingredient}
-        numIngredients={recipe.ingredients.length}
-        handleIngredientChange={(event) => handleIngredientChange(event, index)}
-        handleRemoveIngredient={handleRemoveIngredient}
-        index={index}
-        errors={errors}
-      />
-    );
-  });
-
   if (shouldRedirect.status) {
     return <Redirect push to={`/recipes/${shouldRedirect.id}`} />;
   }
@@ -158,13 +139,13 @@ const RecipeForm = (props) => {
 
         <div className="grid-x grid-margin-x">
           <div className="cell medium-6 callout">
-            Typical meal {errors["Meal"] ? <span>*</span> : null}
-            <div className="grid-x">{mealOptions}</div>
+            <p>Typical meal {errors["Meal"] ? <span>*</span> : null}</p>
+            <MealOptions handleChange={handleChange} recipeMeal={recipe.meal} />
           </div>
 
           <div className="cell medium-6 callout">
-            Tier for time? {errors["Tier"] ? <span>*</span> : null}
-            {tierOptions}
+            <p>Tier for time {errors["Tier"] ? <span>*</span> : null}</p>
+            <TierOptions handleChange={handleChange} recipeTier={recipe.tier} />
           </div>
         </div>
 
@@ -181,7 +162,7 @@ const RecipeForm = (props) => {
           </label>
 
           <label htmlFor="servings" className="cell small-6 medium-3">
-            Number of servings? {errors["Servings"] ? <span>*</span> : null}
+            Number of servings {errors["Servings"] ? <span>*</span> : null}
             <input
               type="number"
               id="servings"
@@ -217,17 +198,28 @@ const RecipeForm = (props) => {
           </label>
         </div>
 
-        <h3>Ingredients</h3>
-
-        {ingredientFields}
-
-        <button className="button" type="button" onClick={handleAddIngredient}>
-          Add ingredient
-        </button>
+        <div className="grid-x grid-margin-x">
+          <IngredientFormSection
+            addToArray={addToArray}
+            defaultIngredient={defaultIngredient}
+            errors={errors}
+            handleIngredientChange={handleIngredientChange}
+            handleRemoveIngredient={handleRemoveIngredient}
+            ingredients={recipe.ingredients}
+          />
+          <StepFormSection
+            addToArray={addToArray}
+            defaultStep={defaultStep}
+            errors={errors}
+            handleRemoveStep={handleRemoveStep}
+            handleStepChange={handleStepChange}
+            steps={recipe.steps}
+          />
+        </div>
 
         <div className="button-group">
           <input className="button" type="submit" value="Add" />
-          <button className="button" type="button" onClick={handleClear}>
+          <button className="button hollow" type="button" onClick={handleClear}>
             Clear
           </button>
         </div>

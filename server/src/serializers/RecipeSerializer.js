@@ -9,7 +9,7 @@ class RecipeSerializer {
   static async getShowDetails(recipe) {
     const serializedRecipe = this.getDetails(recipe);
     const measurements = await recipe.$relatedQuery("measurements");
-    const steps = await recipe.$relatedQuery("steps");
+    const steps = await recipe.$relatedQuery("steps").orderBy("number");
 
     serializedRecipe.measurements = await MeasurementSerializer.getRecipeList(measurements);
     serializedRecipe.steps = StepSerializer.getList(steps);

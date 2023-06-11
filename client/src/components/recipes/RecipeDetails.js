@@ -3,7 +3,7 @@ import { Redirect, useParams } from "react-router-dom";
 
 import { MeasurementIngredientList } from "../ingredients/MeasurementIngredientList";
 import { StepList } from "../steps/StepsList";
-import { FavoriteIcon } from "./FavoriteIcon";
+import { FavoriteIcon } from "./helpers/FavoriteIcon";
 
 export const RecipeDetails = ({ user }) => {
   const [recipe, setRecipe] = useState({ measurements: [], steps: [] });

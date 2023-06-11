@@ -4,11 +4,11 @@ import { Redirect } from "react-router-dom";
 import translateServerErrors from "../../services/translateServerErrors";
 import recipeFormValidation from "../../services/validations/recipeFormValidation";
 
-import { ErrorList } from "../layout/ErrorList";
-import { MealOptions } from "./MealOptions";
-import { TierOptions } from "./TierOptions";
 import { IngredientFormSection } from "../ingredients/IngredientFormSection";
+import { ErrorList } from "../layout/ErrorList";
+import { MealOptions } from "./helpers/MealOptions";
 import { StepFormSection } from "../steps/StepFormSection";
+import { TierOptions } from "./helpers/TierOptions";
 
 export const RecipeForm = (props) => {
   const defaultIngredient = { name: "", amount: "", unit: "", description: "" };

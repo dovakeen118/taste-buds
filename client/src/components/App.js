@@ -5,6 +5,7 @@ import { hot } from "react-hot-loader/root";
 import getCurrentUser from "../services/getCurrentUser";
 
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute";
+import { Footer } from "./layout/Footer";
 import { RecipeDetails } from "./recipes/RecipeDetails";
 import { RecipeForm } from "./recipes/RecipeForm";
 import { RecipeList } from "./recipes/RecipeList";
@@ -45,6 +46,7 @@ const App = (props) => {
           <Route exact path="/user-sessions/new" component={SignInForm} />
         </Switch>
       </div>
+      <Footer />
     </Router>
   );
 };

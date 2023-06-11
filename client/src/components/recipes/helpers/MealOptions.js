@@ -1,6 +1,6 @@
 import React from "react";
 
-import { RadioButton } from "../helpers/RadioButton";
+import { RadioButton } from "../../helpers/RadioButton";
 
 export const MealOptions = ({ handleChange, recipeMeal }) => {
   const meals = ["breakfast", "snack", "lunch", "dessert", "dinner"];

@@ -56,6 +56,19 @@ input[type="checkbox"], input[type="radio"] {
   }
 }
 
+.footer {
+  background-color: $light-green;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 5px;
+
+  p {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+}
+
 .input-field {
   background-color: $white;
   color: $grey;
@@ -99,4 +112,8 @@ input[type="checkbox"], input[type="radio"] {
 
 .heart {
   color: $pink;
+}
+
+.button-heart:hover {
+  cursor: pointer;
 }

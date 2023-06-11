@@ -8,7 +8,7 @@ export const StepList = ({ steps }) => {
   return (
     <div className="cell medium-6 callout">
       <h3>Steps</h3>
-      <ol>{stepTiles}</ol>
+      {steps.length > 0 ? <ol>{stepTiles}</ol> : <p>No steps for this recipe</p>}
     </div>
   );
 };

@@ -18,7 +18,7 @@ export const MeasurementIngredientList = (props) => {
   return (
     <div className="cell medium-6 callout">
       <h3>Ingredients</h3>
-      <ul>{measurements}</ul>
+      {measurements.length > 0 ? <ul>{measurements}</ul> : <p>No ingredients for this recipe</p>}
     </div>
   );
 };

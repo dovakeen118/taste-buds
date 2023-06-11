@@ -34,55 +34,98 @@ recipesRouter.get("/:id", async (req, res) => {
 });
 
 recipesRouter.post("/", async (req, res) => {
-  const { name, meal, tier, servings, leftovers, prepTime, cookTime, ingredients, steps } =
-    req.body;
-  const userId = req.user.id;
-  try {
-    const cleanedRecipeInput = cleanUserInput({
-      name,
-      meal,
-      tier,
-      servings,
-      leftovers,
-      prepTime,
-      cookTime,
-    });
-    const createdRecipe = await Recipe.transaction(async (trx) => {
-      const recipe = await Recipe.query(trx).insertAndFetch({ ...cleanedRecipeInput, userId });
-      for (const ingredient of ingredients) {
-        const { name: ingredientName, amount, unit, description } = cleanUserInput(ingredient);
-        const foundIngredient =
-          (await Ingredient.query(trx)
-            .findOne({
-              name: ingredientName,
-            })
-            .skipUndefined()) ||
-          (await Ingredient.query(trx).insertAndFetch({ name: ingredientName }));
-
-        await recipe.$relatedQuery("measurements", trx).insert({
-          recipeId: recipe.id,
-          ingredientId: foundIngredient.id,
-          amount,
-          unit,
-          description,
+  if (req.body.originalRecipeId) {
+    const { originalRecipeId } = req.body;
+    try {
+      const createdRecipe = await Recipe.transaction(async (trx) => {
+        const recipe = await Recipe.query(trx).findById(originalRecipeId);
+        const cleanedRecipeInput = cleanUserInput({
+          ...recipe,
+          id: null,
+          userId: req.user.id,
+          originalRecipeId,
         });
+        const measurements = await recipe.$relatedQuery("measurements", trx);
+        const steps = await recipe.$relatedQuery("steps", trx);
+        const newRecipe = await Recipe.query(trx).insertAndFetch(cleanedRecipeInput);
+
+        for (const measurement of measurements) {
+          const cleanedMeasurement = cleanUserInput({
+            ...measurement,
+            id: null,
+            recipeId: newRecipe.id,
+          });
+
+          await newRecipe.$relatedQuery("measurements", trx).insert(cleanedMeasurement);
+        }
+
+        for (const step of steps) {
+          const cleanedStep = cleanUserInput({ ...step, id: null, recipeId: newRecipe.id });
+          await newRecipe.$relatedQuery("steps", trx).insert(cleanedStep);
+        }
+
+        return newRecipe;
+      });
+
+      const serializedRecipe = await RecipeSerializer.getShowDetails(createdRecipe);
+      return res.status(201).json({ recipe: serializedRecipe });
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        return res.status(422).json({ errors: error.data });
       }
-
-      for (const [index, step] of steps.entries()) {
-        const { body } = cleanUserInput(step);
-        await recipe.$relatedQuery("steps", trx).insert({ body, number: index + 1 });
-      }
-
-      return recipe;
-    });
-
-    const serializedRecipe = RecipeSerializer.getDetails(createdRecipe);
-    return res.status(201).json({ recipe: serializedRecipe });
-  } catch (error) {
-    if (error instanceof ValidationError) {
-      return res.status(422).json({ errors: error.data });
+      return res.status(500).json({ errors: error });
     }
-    return res.status(500).json({ errors: error });
+  } else {
+    const { name, meal, tier, servings, leftovers, prepTime, cookTime, ingredients, steps } =
+      req.body;
+    const userId = req.user.id;
+    try {
+      const cleanedRecipeInput = cleanUserInput({
+        name,
+        meal,
+        tier,
+        servings,
+        leftovers,
+        prepTime,
+        cookTime,
+      });
+      const createdRecipe = await Recipe.transaction(async (trx) => {
+        const recipe = await Recipe.query(trx).insertAndFetch({ ...cleanedRecipeInput, userId });
+        for (const ingredient of ingredients) {
+          const { name: ingredientName, amount, unit, description } = cleanUserInput(ingredient);
+          const foundIngredient =
+            (await Ingredient.query(trx)
+              .findOne({
+                name: ingredientName,
+              })
+              .skipUndefined()) ||
+            (await Ingredient.query(trx).insertAndFetch({ name: ingredientName }));
+
+          await recipe.$relatedQuery("measurements", trx).insert({
+            recipeId: recipe.id,
+            ingredientId: foundIngredient.id,
+            amount,
+            unit,
+            description,
+          });
+        }
+
+        for (const [index, step] of steps.entries()) {
+          const { body } = cleanUserInput(step);
+          await recipe.$relatedQuery("steps", trx).insert({ body, number: index + 1 });
+        }
+
+        return recipe;
+      });
+
+      const serializedRecipe = RecipeSerializer.getDetails(createdRecipe);
+      return res.status(201).json({ recipe: serializedRecipe });
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        return res.status(422).json({ errors: error.data });
+      }
+      return res.status(500).json({ errors: error });
+    }
   }
 });
 

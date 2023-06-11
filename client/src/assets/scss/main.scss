@@ -37,6 +37,17 @@ input[type="checkbox"], input[type="radio"] {
   background-color: $light-green;
 }
 
+.button.hollow {
+  border-color: $teal;
+  color: $teal;
+}
+
+.button.hollow:hover {
+  background-color: $light-green;
+  border-color: $light-green;
+  color: $white;
+}
+
 .callout {
   background-color: $white;
   border-radius: 25px;
@@ -91,6 +102,10 @@ input[type="checkbox"], input[type="radio"] {
   }
 }
 
+.clickable-text:hover {
+  cursor: pointer;
+}
+
 .recipe-column, .recipe-tile {
   height: fit-content;
 }
@@ -114,6 +129,10 @@ input[type="checkbox"], input[type="radio"] {
   color: $pink;
 }
 
-.button-heart:hover {
+.star {
+  color: $yellow;
+}
+
+.button-heart:hover, .button-star:hover {
   cursor: pointer;
 }

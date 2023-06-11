@@ -1,5 +1,6 @@
 import MeasurementSerializer from "./MeasurementSerializer.js";
 import StepSerializer from "./StepSerializer.js";
+import UserSerializer from "./UserSerializer.js";
 
 class RecipeSerializer {
   static getList(recipes) {
@@ -10,9 +11,11 @@ class RecipeSerializer {
     const serializedRecipe = this.getDetails(recipe);
     const measurements = await recipe.$relatedQuery("measurements");
     const steps = await recipe.$relatedQuery("steps").orderBy("number");
+    const user = await recipe.$relatedQuery("user");
 
     serializedRecipe.measurements = await MeasurementSerializer.getRecipeList(measurements);
     serializedRecipe.steps = StepSerializer.getList(steps);
+    serializedRecipe.user = UserSerializer.getDetails(user);
 
     return serializedRecipe;
   }
@@ -28,6 +31,7 @@ class RecipeSerializer {
       "prepTime",
       "cookTime",
       "favorite",
+      "originalRecipeId",
       "userId",
       "updatedAt",
     ];

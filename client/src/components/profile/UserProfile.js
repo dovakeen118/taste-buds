@@ -30,7 +30,7 @@ export const UserProfile = (props) => {
     <>
       <h1>{user.email}</h1>
       <p>User since {new Date(user.createdAt).toLocaleString()}</p>
-      <h3>Your recipes</h3>
+      <h3>Your recipe book</h3>
       <ul className="grid-x grid-margin-x callout secondary">{recipes}</ul>
     </>
   );

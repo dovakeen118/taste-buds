@@ -16,7 +16,13 @@ exports.up = async (knex) => {
     return knex.schema.createTable(tableName, (table) => {
       table.bigIncrements("id");
       table.text("body").notNullable();
-      table.bigInteger("recipeId").notNullable().index().unsigned().references("recipes.id");
+      table
+        .bigInteger("recipeId")
+        .notNullable()
+        .index()
+        .unsigned()
+        .references("recipes.id")
+        .onDelete("CASCADE");
       table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now());
       table.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now());
     });

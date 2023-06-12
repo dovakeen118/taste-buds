@@ -23,8 +23,15 @@ exports.up = async (knex) => {
         .notNullable()
         .index()
         .unsigned()
-        .references("ingredients.id");
-      table.bigInteger("recipeId").notNullable().index().unsigned().references("recipes.id");
+        .references("ingredients.id")
+        .onDelete("CASCADE");
+      table
+        .bigInteger("recipeId")
+        .notNullable()
+        .index()
+        .unsigned()
+        .references("recipes.id")
+        .onDelete("CASCADE");
       table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now());
       table.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now());
     });

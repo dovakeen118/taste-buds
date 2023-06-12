@@ -22,7 +22,13 @@ exports.up = async (knex) => {
       table.integer("servings");
       table.integer("prepTime");
       table.integer("cookTime");
-      table.bigInteger("userId").notNullable().index().unsigned().references("users.id");
+      table
+        .bigInteger("userId")
+        .notNullable()
+        .index()
+        .unsigned()
+        .references("users.id")
+        .onDelete("CASCADE");
       table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now());
       table.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now());
     });

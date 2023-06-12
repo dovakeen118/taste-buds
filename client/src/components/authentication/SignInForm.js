@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
@@ -50,14 +51,14 @@ export const SignInForm = () => {
   }
 
   return (
-    <div className="grid-container">
+    <>
       <h1 className="text-center">
-        Welcome back <FontAwesomeIcon icon={faHeart} className="heart" />
+        Welcome back <FontAwesomeIcon icon={faHeart} className="pink" />
       </h1>
 
       {credentialsErrors ? <p className="callout alert">{credentialsErrors}</p> : null}
 
-      <form onSubmit={onSubmit} className="passport-form callout secondary">
+      <form onSubmit={onSubmit} className="passport-form callout primary">
         <div>
           <label>
             Email
@@ -84,10 +85,16 @@ export const SignInForm = () => {
             <FormError error={errors.password} />
           </label>
         </div>
-        <div className="text-center">
-          <input type="submit" className="button" value="Sign In" />
+        <div className="button-group align-center">
+          <input type="submit" className="button expanded" value="Sign In" />
+          <p>
+            Want to join?{" "}
+            <Link to="/users/new" className="teal">
+              Sign Up
+            </Link>
+          </p>
         </div>
       </form>
-    </div>
+    </>
   );
 };

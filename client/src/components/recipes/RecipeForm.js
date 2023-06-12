@@ -227,11 +227,11 @@ export const RecipeForm = (props) => {
           />
         </div>
 
-        <div className="button-group">
-          <input className="button" type="submit" value="Add" />
+        <div className="button-group expanded align-center">
           <button className="button hollow" type="button" onClick={handleClear}>
             Clear
           </button>
+          <input className="button" type="submit" value="Add Recipe" />
         </div>
       </form>
     </>

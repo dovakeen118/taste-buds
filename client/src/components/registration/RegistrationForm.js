@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSeedling } from "@fortawesome/free-solid-svg-icons";
 
@@ -59,12 +60,12 @@ export const RegistrationForm = () => {
   }
 
   return (
-    <div className="grid-container">
+    <>
       <h1 className="text-center">
-        Join Taste Buds <FontAwesomeIcon icon={faSeedling} className="bud" />
+        Join Taste Buds <FontAwesomeIcon icon={faSeedling} className="teal" />
       </h1>
       <ErrorList errors={serverErrors} />
-      <form onSubmit={onSubmit} className="passport-form callout secondary">
+      <form onSubmit={onSubmit} className="passport-form callout primary">
         <div>
           <label>
             Email
@@ -104,11 +105,17 @@ export const RegistrationForm = () => {
             <FormError error={errors.passwordConfirmation} />
           </label>
         </div>
-        <div className="text-center">
-          <input type="submit" className="button" value="Register" />
+        <div className="button-group align-center">
+          <input type="submit" className="button expanded" value="Join" />
+          <p>
+            Already a member?{" "}
+            <Link to="/user-sessions/new" className="teal">
+              Sign In
+            </Link>
+          </p>
         </div>
       </form>
-    </div>
+    </>
   );
 };
 

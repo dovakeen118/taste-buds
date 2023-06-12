@@ -36,7 +36,9 @@ const App = (props) => {
       <TopBar user={currentUser} />
       <div className="grid-container">
         <Switch>
-          <Route exact path="/" component={RecipeList} />
+          <Route exact path="/">
+            <RecipeList user={currentUser} />
+          </Route>
           <AuthenticatedRoute exact path="/recipes/new" component={RecipeForm} user={currentUser} />
           <AuthenticatedRoute exact path="/profile" component={UserProfile} user={currentUser} />
           <Route exact path="/recipes/:id">

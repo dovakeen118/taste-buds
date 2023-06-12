@@ -9,7 +9,7 @@ export const IngredientFormFields = ({
   errors,
 }) => {
   return (
-    <div className="callout secondary">
+    <div className="callout primary">
       <div className="grid-x grid-margin-x">
         <label htmlFor="name" className="cell small-6">
           Name {errors[`Ingredient ${index + 1} Name`] ? <span>*</span> : null}
@@ -81,7 +81,7 @@ export const IngredientFormFields = ({
         <button
           type="button"
           onClick={() => handleRemoveIngredient(index)}
-          className="button alert"
+          className="button expanded alert"
         >
           Remove
         </button>

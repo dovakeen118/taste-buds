@@ -29,7 +29,7 @@ export const IngredientFormSection = ({
       <h3>Ingredients</h3>
       {ingredientFields}
       <button
-        className="button"
+        className="button expanded"
         type="button"
         onClick={() => addToArray("ingredients", defaultIngredient)}
       >

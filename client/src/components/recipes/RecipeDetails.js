@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faStar } from "@fortawesome/free-solid-svg-icons";
 
 import { MeasurementIngredientList } from "../ingredients/MeasurementIngredientList";
 import { StepList } from "../steps/StepsList";
@@ -60,11 +60,19 @@ export const RecipeDetails = ({ user }) => {
               {user && user.id !== recipe.userId ? <SaveIcon setRecipe={setRecipe} /> : null}
             </h1>
             <h3 className="subheader">
-              Written by {user?.id === recipe.userId ? "you" : recipe.user.email}
+              Written by{" "}
+              {user?.id === recipe.userId ? (
+                "you"
+              ) : (
+                <>
+                  {recipe.user.email}{" "}
+                  {recipe.favorite ? <FontAwesomeIcon icon={faHeart} className="pink" /> : null}
+                </>
+              )}
             </h3>
             {recipe.originalRecipeId ? (
               <h5 className="clickable-text subheader" onClick={() => setShouldRedirect(true)}>
-                <FontAwesomeIcon icon={faStar} className="star" /> Original recipe
+                <FontAwesomeIcon icon={faStar} className="yellow" /> Original recipe
               </h5>
             ) : null}
           </>

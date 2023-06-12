@@ -31,7 +31,7 @@ export const FavoriteIcon = ({ favorite, recipeUserId, setRecipe, user }) => {
     <FontAwesomeIcon
       icon={favorite ? faSolidHeart : faRegularHeart}
       onClick={handleClick}
-      className={user && user.id === recipeUserId ? "button-heart heart" : "heart"}
+      className={user && user.id === recipeUserId ? "button-heart pink" : "pink"}
     />
   );
 };

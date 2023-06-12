@@ -5,7 +5,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { RecipeTile } from "./RecipeTile";
 
-export const RecipeList = () => {
+export const RecipeList = ({ user }) => {
   const [recipes, setRecipes] = useState([]);
 
   const getRecipes = async () => {
@@ -34,13 +34,19 @@ export const RecipeList = () => {
       <div className="grid-x">
         <h1 className="cell small-6">Taste Buds Recipes</h1>
         <p className="cell small-6 new-recipe-button">
-          Add your own recipe?
-          <Link to="/recipes/new" className="button">
-            <FontAwesomeIcon icon={faPlus} />
-          </Link>
+          {user ? (
+            <>
+              Add your own recipe?
+              <Link to="/recipes/new" className="button">
+                <FontAwesomeIcon icon={faPlus} />
+              </Link>
+            </>
+          ) : (
+            <>Sign in to add a recipe</>
+          )}
         </p>
       </div>
-      <div className="grid-x grid-margin-x callout secondary">{recipeTiles}</div>
+      <div className="grid-x grid-margin-x callout primary">{recipeTiles}</div>
     </>
   );
 };

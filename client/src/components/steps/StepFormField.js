@@ -9,7 +9,7 @@ export const StepFormField = ({
   errors,
 }) => {
   return (
-    <div className="callout secondary">
+    <div className="callout primary">
       <label htmlFor="body">
         Step {index + 1} {errors[`Step ${index + 1} Body`] ? <span>*</span> : null}
         <textarea
@@ -22,7 +22,11 @@ export const StepFormField = ({
       </label>
 
       {numSteps ? (
-        <button type="button" onClick={() => handleRemoveStep(index)} className="button alert">
+        <button
+          type="button"
+          onClick={() => handleRemoveStep(index)}
+          className="button expanded alert"
+        >
           Remove
         </button>
       ) : null}

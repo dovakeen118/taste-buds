@@ -28,7 +28,11 @@ export const StepFormSection = ({
     <div className="cell medium-6 callout recipe-column">
       <h3>Steps</h3>
       {stepFields}
-      <button className="button" type="button" onClick={() => addToArray("steps", defaultStep)}>
+      <button
+        className="button expanded"
+        type="button"
+        onClick={() => addToArray("steps", defaultStep)}
+      >
         Add step
       </button>
     </div>

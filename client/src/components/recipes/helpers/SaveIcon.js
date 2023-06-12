@@ -30,5 +30,5 @@ export const SaveIcon = () => {
     location.href = `/recipes/${shouldRedirect.id}`;
   }
 
-  return <FontAwesomeIcon icon={faStar} onClick={handleClick} className={"button-star star"} />;
+  return <FontAwesomeIcon icon={faStar} onClick={handleClick} className={"button-star yellow"} />;
 };

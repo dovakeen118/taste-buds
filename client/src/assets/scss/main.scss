@@ -26,7 +26,6 @@ input[type="checkbox"], input[type="radio"] {
   accent-color: $teal;
 }
 
-
 .button, .button:focus {
   background-color: $teal;
   border-radius: 25px;
@@ -34,7 +33,13 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .button:hover {
-  background-color: $light-green;
+  background-color: $white;
+  border-color: $teal;
+  color: $teal;
+}
+
+.button.alert:hover {
+  border-color: #A53B2A;
 }
 
 .button.hollow {
@@ -43,14 +48,9 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .button.hollow:hover {
-  background-color: $light-green;
-  border-color: $light-green;
+  background-color: $teal;
+  border-color: $teal;
   color: $white;
-}
-
-.callout {
-  background-color: $white;
-  border-radius: 25px;
 }
 
 .top-bar {
@@ -65,6 +65,16 @@ input[type="checkbox"], input[type="radio"] {
   .link {
     color: $white;
   }
+
+  .button:hover {
+    background-color: $light-green;
+    border-color: $light-green;
+    color: $white;
+  }
+}
+
+.grid-container {
+  margin-bottom: 50px;
 }
 
 .footer {
@@ -78,6 +88,15 @@ input[type="checkbox"], input[type="radio"] {
     margin-top: 5px;
     margin-bottom: 5px;
   }
+}
+
+.callout {
+  background-color: $white;
+  border-radius: 25px;
+}
+
+.callout.primary {
+  background-color: $light-cream;
 }
 
 .input-field {
@@ -121,15 +140,15 @@ input[type="checkbox"], input[type="radio"] {
   box-shadow: 3px 3px 5px $teal;
 }
 
-.bud {
+.teal {
   color: $teal;
 }
 
-.heart {
+.pink {
   color: $pink;
 }
 
-.star {
+.yellow {
   color: $yellow;
 }
 

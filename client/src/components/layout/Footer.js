@@ -6,8 +6,8 @@ export const Footer = (props) => {
   return (
     <div className="footer text-center">
       <p>
-        <FontAwesomeIcon icon={faSeedling} className="bud" /> Thank you{" "}
-        <FontAwesomeIcon icon={faHeart} className="heart" />
+        <FontAwesomeIcon icon={faSeedling} className="teal" /> Thank you{" "}
+        <FontAwesomeIcon icon={faHeart} className="pink" />
       </p>
     </div>
   );

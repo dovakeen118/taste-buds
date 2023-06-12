@@ -8,7 +8,7 @@ export const RecipeTile = ({ recipe }) => {
     <Link to={`/recipes/${recipe.id}`} className="cell medium-4 callout recipe-tile">
       <div className="grid-x">
         <h3 className="cell small-11">{recipe.name}</h3>
-        {recipe.favorite ? <FontAwesomeIcon icon={faHeart} className="cell small-1 heart" /> : null}
+        {recipe.favorite ? <FontAwesomeIcon icon={faHeart} className="cell small-1 pink" /> : null}
       </div>
       <div>
         <h5>Tier: {recipe.tier}</h5>

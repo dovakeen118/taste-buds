@@ -26,6 +26,11 @@ input[type="checkbox"], input[type="radio"] {
   accent-color: $teal;
 }
 
+.button-group .button {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
 .button, .button:focus {
   background-color: $teal;
   border-radius: 25px;
@@ -119,6 +124,11 @@ input[type="checkbox"], input[type="radio"] {
     vertical-align: baseline;
     margin-left: 5px;
   }
+}
+
+.close-icon {
+  margin-left: 5px;
+  vertical-align: middle;
 }
 
 .clickable-text:hover {

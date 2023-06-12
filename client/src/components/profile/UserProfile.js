@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import { RecipeTile } from "../recipes/RecipeTile";
+import { RecipeCollection } from "../recipes/RecipeCollection";
 
 export const UserProfile = (props) => {
   const [user, setUser] = useState({ recipes: [] });
@@ -22,16 +25,20 @@ export const UserProfile = (props) => {
     getUser();
   }, []);
 
-  const recipes = user.recipes.map((recipe) => {
-    return <RecipeTile key={recipe.id} recipe={recipe} />;
-  });
-
   return (
     <>
       <h1>{user.email}</h1>
       <p>User since {new Date(user.createdAt).toLocaleString()}</p>
-      <h3>Your recipe book</h3>
-      <ul className="grid-x grid-margin-x callout primary">{recipes}</ul>
+      <div className="grid-x">
+        <h3 className="cell medium-4 medium-offset-4 text-center">Your recipe book</h3>
+        <p className="cell medium-4 new-recipe-button">
+          Add your own recipe
+          <Link to="/recipes/new" className="button">
+            <FontAwesomeIcon icon={faPlus} />
+          </Link>
+        </p>
+      </div>
+      <RecipeCollection recipeData={user.recipes} />
     </>
   );
 };

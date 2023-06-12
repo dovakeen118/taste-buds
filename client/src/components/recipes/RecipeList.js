@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import { RecipeTile } from "./RecipeTile";
+import { RecipeCollection } from "./RecipeCollection";
 
 export const RecipeList = ({ user }) => {
   const [recipes, setRecipes] = useState([]);
@@ -25,18 +25,14 @@ export const RecipeList = ({ user }) => {
     getRecipes();
   }, []);
 
-  const recipeTiles = recipes.map((recipe) => {
-    return <RecipeTile key={recipe.id} recipe={recipe} />;
-  });
-
   return (
     <>
       <div className="grid-x">
-        <h1 className="cell small-6">Taste Buds Recipes</h1>
-        <p className="cell small-6 new-recipe-button">
+        <h1 className="cell medium-6 medium-offset-3 text-center">Taste Buds Recipes</h1>
+        <p className="cell medium-3 new-recipe-button">
           {user ? (
             <>
-              Add your own recipe?
+              Add your own recipe
               <Link to="/recipes/new" className="button">
                 <FontAwesomeIcon icon={faPlus} />
               </Link>
@@ -46,7 +42,13 @@ export const RecipeList = ({ user }) => {
           )}
         </p>
       </div>
-      <div className="grid-x grid-margin-x callout primary">{recipeTiles}</div>
+      {recipes.length > 0 ? (
+        <RecipeCollection recipeData={recipes} />
+      ) : (
+        <div className="callout primary">
+          <h3 className="text-center">Loading...</h3>
+        </div>
+      )}
     </>
   );
 };

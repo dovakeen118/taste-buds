@@ -14,6 +14,7 @@ export const RegistrationForm = () => {
     email: "",
     password: "",
     passwordConfirmation: "",
+    username: "",
   });
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [errors, setErrors] = useState({});
@@ -60,12 +61,25 @@ export const RegistrationForm = () => {
   }
 
   return (
-    <>
+    <div className="passport-form">
       <h1 className="text-center">
         Join Taste Buds <FontAwesomeIcon icon={faSeedling} className="teal" />
       </h1>
       <ErrorList errors={serverErrors} />
-      <form onSubmit={onSubmit} className="passport-form callout primary">
+      <form onSubmit={onSubmit} className="callout primary">
+        <div>
+          <label>
+            Username
+            <input
+              type="text"
+              name="username"
+              value={userPayload.username}
+              onChange={onInputChange}
+              className="input-field"
+            />
+            <FormError error={errors.username} />
+          </label>
+        </div>
         <div>
           <label>
             Email
@@ -115,7 +129,7 @@ export const RegistrationForm = () => {
           </p>
         </div>
       </form>
-    </>
+    </div>
   );
 };
 

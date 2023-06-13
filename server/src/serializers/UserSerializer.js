@@ -12,7 +12,7 @@ class UserSerializer {
   }
 
   static getDetails(user) {
-    const allowedAttributes = ["id", "email", "createdAt"];
+    const allowedAttributes = ["id", "username", "createdAt"];
 
     let serializedUser = {};
     for (const attribute of allowedAttributes) {

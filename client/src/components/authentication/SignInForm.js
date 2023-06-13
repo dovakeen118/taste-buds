@@ -8,7 +8,7 @@ import signInFormValidation from "../../services/validations/signInFormValidatio
 import { FormError } from "../layout/FormError";
 
 export const SignInForm = () => {
-  const [userPayload, setUserPayload] = useState({ email: "", password: "" });
+  const [userPayload, setUserPayload] = useState({ username: "", password: "" });
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [errors, setErrors] = useState({});
   const [credentialsErrors, setCredentialsErrors] = useState("");
@@ -47,29 +47,29 @@ export const SignInForm = () => {
   };
 
   if (shouldRedirect) {
-    location.href = "/";
+    location.href = "/profile";
   }
 
   return (
-    <>
+    <div className="passport-form">
       <h1 className="text-center">
         Welcome back <FontAwesomeIcon icon={faHeart} className="pink" />
       </h1>
 
       {credentialsErrors ? <p className="callout alert">{credentialsErrors}</p> : null}
 
-      <form onSubmit={onSubmit} className="passport-form callout primary">
+      <form onSubmit={onSubmit} className="callout primary">
         <div>
           <label>
-            Email
+            Username
             <input
               type="text"
-              name="email"
-              value={userPayload.email}
+              name="username"
+              value={userPayload.username}
               onChange={onInputChange}
               className="input-field"
             />
-            <FormError error={errors.email} />
+            <FormError error={errors.username} />
           </label>
         </div>
         <div>
@@ -95,6 +95,6 @@ export const SignInForm = () => {
           </p>
         </div>
       </form>
-    </>
+    </div>
   );
 };

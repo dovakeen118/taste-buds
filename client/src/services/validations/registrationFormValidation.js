@@ -2,13 +2,20 @@ import config from "../../config";
 
 const registrationFormValidation = ({ payload, setErrors }) => {
   setErrors({});
-  const { email, password, passwordConfirmation } = payload;
+  const { email, password, passwordConfirmation, username } = payload;
   const emailRegexp = config.validation.email.regexp.emailRegex;
   let newErrors = {};
   if (!email.match(emailRegexp)) {
     newErrors = {
       ...newErrors,
       email: "is invalid",
+    };
+  }
+
+  if (username.trim() == "") {
+    newErrors = {
+      ...newErrors,
+      username: "is required",
     };
   }
 

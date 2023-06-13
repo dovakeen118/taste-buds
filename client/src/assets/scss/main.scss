@@ -44,7 +44,7 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .button.alert:hover {
-  border-color: #A53B2A;
+  border-color: $red;
 }
 
 .button.hollow {
@@ -95,7 +95,8 @@ input[type="checkbox"], input[type="radio"] {
   }
 }
 
-.callout {
+.callout, .input-field, .input-field:focus {
+  box-shadow: 1px 1px 4px $grey;
   background-color: $white;
   border-radius: 25px;
 }
@@ -105,9 +106,7 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .input-field {
-  background-color: $white;
   color: $grey;
-  border-radius: 25px;
 }
 
 .passport-form {
@@ -156,6 +155,10 @@ input[type="checkbox"], input[type="radio"] {
 
 .pink {
   color: $pink;
+}
+
+.red {
+  color: $red;
 }
 
 .yellow {

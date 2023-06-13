@@ -229,9 +229,9 @@ export const RecipeForm = (props) => {
 
         <div className="button-group expanded align-center">
           <button className="button hollow" type="button" onClick={handleClear}>
-            Clear
+            Clear recipe
           </button>
-          <input className="button" type="submit" value="Add Recipe" />
+          <input className="button" type="submit" value="Add recipe" />
         </div>
       </form>
     </>

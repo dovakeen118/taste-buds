@@ -6,9 +6,9 @@ import getCurrentUser from "../services/getCurrentUser";
 
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute";
 import { Footer } from "./layout/Footer";
-import { RecipeDetails } from "./recipes/RecipeDetails";
+import { RecipeShow } from "./recipes/RecipeShow";
 import { RecipeForm } from "./recipes/RecipeForm";
-import { RecipeList } from "./recipes/RecipeList";
+import { RecipeIndex } from "./recipes/RecipeIndex";
 import { RegistrationForm } from "./registration/RegistrationForm";
 import { SignInForm } from "./authentication/SignInForm";
 import { TopBar } from "./layout/TopBar";
@@ -16,7 +16,7 @@ import { UserProfile } from "./profile/UserProfile";
 
 import "../assets/scss/main.scss";
 
-const App = (props) => {
+const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const fetchCurrentUser = async () => {
     try {
@@ -37,12 +37,12 @@ const App = (props) => {
       <div className="grid-container">
         <Switch>
           <Route exact path="/">
-            <RecipeList user={currentUser} />
+            <RecipeIndex user={currentUser} />
           </Route>
           <AuthenticatedRoute exact path="/recipes/new" component={RecipeForm} user={currentUser} />
           <AuthenticatedRoute exact path="/profile" component={UserProfile} user={currentUser} />
           <Route exact path="/recipes/:id">
-            <RecipeDetails user={currentUser} />
+            <RecipeShow user={currentUser} />
           </Route>
           <Route exact path="/users/new" component={RegistrationForm} />
           <Route exact path="/user-sessions/new" component={SignInForm} />

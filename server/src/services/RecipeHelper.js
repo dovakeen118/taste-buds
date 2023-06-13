@@ -84,6 +84,35 @@ class RecipeHelper {
       return newRecipe;
     });
   }
+
+  static async filter({ query, filterOptions }) {
+    const options = filterOptions?.split(",");
+    const selections = { favorites: false, meals: [], tiers: [] };
+    if (options) {
+      options.includes("favorites") ? (selections.favorites = true) : null;
+      options.includes("breakfast") ? selections.meals.push("breakfast") : null;
+      options.includes("lunch") ? selections.meals.push("lunch") : null;
+      options.includes("dinner") ? selections.meals.push("dinner") : null;
+      options.includes("snack") ? selections.meals.push("snack") : null;
+      options.includes("dessert") ? selections.meals.push("dessert") : null;
+      options.includes("quick") ? selections.tiers.push("quick") : null;
+      options.includes("average") ? selections.tiers.push("average") : null;
+      options.includes("extended") ? selections.tiers.push("extended") : null;
+
+      if (selections.favorites) {
+        query.where({ favorite: true });
+      }
+      if (selections.meals.length > 0) {
+        query.whereIn("meal", selections.meals);
+      }
+      if (selections.tiers.length > 0) {
+        query.whereIn("tier", selections.tiers);
+      }
+    }
+
+    const recipes = await query;
+    return recipes;
+  }
 }
 
 export default RecipeHelper;

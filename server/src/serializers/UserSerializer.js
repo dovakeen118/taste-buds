@@ -4,9 +4,7 @@ class UserSerializer {
   static async getProfileDetails(user) {
     const serializedUser = this.getDetails(user);
     const recipes = await user.$relatedQuery("recipes");
-    serializedUser.recipes = await Promise.all(
-      recipes.map(async (recipe) => RecipeSerializer.getShowDetails(recipe))
-    );
+    serializedUser.recipes = await RecipeSerializer.getDetailedList(recipes);
 
     return serializedUser;
   }

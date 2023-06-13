@@ -4,10 +4,12 @@ class UserSeeder {
   static async seed() {
     const users = [
       {
+        username: "dovakeen",
         email: "user@example.com",
         password: "password",
       },
       {
+        username: "bahamut",
         email: "user1@example.com",
         password: "password",
       },

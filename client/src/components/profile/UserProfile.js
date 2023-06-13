@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+
+import { formatDate } from "../../services/formatDate";
 
 import { RecipeCollection } from "../recipes/RecipeCollection";
+import { AddRecipeButton } from "../recipes/helpers/AddRecipeButton";
 
 export const UserProfile = (props) => {
   const [user, setUser] = useState({ recipes: [] });
@@ -27,15 +27,14 @@ export const UserProfile = (props) => {
 
   return (
     <>
-      <h1>{user.email}</h1>
-      <p>User since {new Date(user.createdAt).toLocaleString()}</p>
+      <h1>{user.username}</h1>
+      <h3 className="subheader">
+        {user.createdAt ? `member since ${formatDate(user.createdAt)}` : null}
+      </h3>
       <div className="grid-x">
         <h3 className="cell medium-4 medium-offset-4 text-center">Your recipe book</h3>
         <p className="cell medium-4 new-recipe-button">
-          Add your own recipe
-          <Link to="/recipes/new" className="button">
-            <FontAwesomeIcon icon={faPlus} />
-          </Link>
+          <AddRecipeButton />
         </p>
       </div>
       <RecipeCollection recipeData={user.recipes} />

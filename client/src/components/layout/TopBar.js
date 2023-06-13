@@ -22,7 +22,7 @@ export const TopBar = ({ user }) => {
   const authenticatedListItems = [
     <li key="welcome">
       <Link to="/profile" className="link">
-        Welcome, {user?.email}
+        Welcome, {user?.username}
       </Link>
     </li>,
     <li key="sign-out">

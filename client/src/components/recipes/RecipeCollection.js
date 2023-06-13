@@ -14,7 +14,7 @@ export const RecipeCollection = ({ recipeData }) => {
       return (a, b) => a.name.localeCompare(b.name);
     } else if (sortOption === "z - a") {
       return (a, b) => b.name.localeCompare(a.name);
-    } else if (sortOption === "Time tier") {
+    } else if (sortOption === "time tier") {
       return (a, b) => tierOrder.indexOf(a.tier) - tierOrder.indexOf(b.tier);
     } else {
       return (a, b) => new Date(a.updatedAt) - new Date(b.updatedAt);

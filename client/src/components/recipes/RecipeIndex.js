@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
+import { AddRecipeButton } from "./helpers/AddRecipeButton";
 import { RecipeCollection } from "./RecipeCollection";
 
-export const RecipeList = ({ user }) => {
+export const RecipeIndex = ({ user }) => {
   const [recipes, setRecipes] = useState([]);
 
   const getRecipes = async () => {
@@ -30,16 +28,7 @@ export const RecipeList = ({ user }) => {
       <div className="grid-x">
         <h1 className="cell medium-6 medium-offset-3 text-center">Taste Buds Recipes</h1>
         <p className="cell medium-3 new-recipe-button">
-          {user ? (
-            <>
-              Add your own recipe
-              <Link to="/recipes/new" className="button">
-                <FontAwesomeIcon icon={faPlus} />
-              </Link>
-            </>
-          ) : (
-            <>Sign in to add a recipe</>
-          )}
+          {user ? <AddRecipeButton /> : <>Sign in to add a recipe</>}
         </p>
       </div>
       {recipes.length > 0 ? (

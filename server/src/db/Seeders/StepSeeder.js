@@ -2,7 +2,7 @@ import { Recipe, Step } from "../../models/index.js";
 
 class StepSeeder {
   static async seed() {
-    const casserole = await Recipe.query().findOne({ name: "Broccoli Casserole" });
+    const casserole = await Recipe.query().findOne({ name: "Chicken Broccoli Casserole" });
     const smoothie = await Recipe.query().findOne({ name: "Smoothie" });
 
     const steps = [

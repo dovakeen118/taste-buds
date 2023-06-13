@@ -6,7 +6,7 @@ class MeasurementSeeder {
     const chicken = await Ingredient.query().findOne({ name: "chicken" });
     const rice = await Ingredient.query().findOne({ name: "rice" });
     const cheese = await Ingredient.query().findOne({ name: "cheese" });
-    const casserole = await Recipe.query().findOne({ name: "Broccoli Casserole" });
+    const casserole = await Recipe.query().findOne({ name: "Chicken Broccoli Casserole" });
     const stirFry = await Recipe.query().findOne({ name: "Stir Fry" });
 
     const measurements = [

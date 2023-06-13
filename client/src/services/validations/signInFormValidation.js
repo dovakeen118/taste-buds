@@ -1,14 +1,12 @@
-import config from "../../config";
-
 const signInFormValidation = ({ payload, setErrors }) => {
   setErrors({});
-  const { email, password } = payload;
-  const emailRegexp = config.validation.email.regexp;
+  const { username, password } = payload;
   let newErrors = {};
-  if (!email.match(emailRegexp)) {
+
+  if (username.trim() === "") {
     newErrors = {
       ...newErrors,
-      email: "is invalid",
+      username: "is required",
     };
   }
 

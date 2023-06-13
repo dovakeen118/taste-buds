@@ -1,27 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import { formatDate } from "../../services/formatDate";
-import { getUser } from "../../services/requests/getUser";
 
 import { RecipeCollection } from "../recipes/RecipeCollection";
 import { AddRecipeButton } from "../recipes/helpers/AddRecipeButton";
 
-export const UserProfile = (props) => {
-  const [user, setUser] = useState({ recipes: [] });
-
-  const fetchUser = async () => {
-    try {
-      const { user } = await getUser({ userId: props.user.id });
-      setUser(user);
-    } catch (error) {
-      console.error(`Error in fetch for User: ${error.message}`);
-    }
-  };
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
+export const UserProfile = ({ user }) => {
   return (
     <>
       <h1>{user.username}</h1>
@@ -34,7 +18,7 @@ export const UserProfile = (props) => {
           <AddRecipeButton />
         </p>
       </div>
-      <RecipeCollection recipeData={user.recipes} />
+      <RecipeCollection userId={user.id} />
     </>
   );
 };

@@ -2,19 +2,11 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-export const SortOptions = ({ sortOptions, selectedSortOption, setSelectedSortOption }) => {
-  const selectableSortOptions = sortOptions.map((option) => {
-    const handleSelectOption = (event) => {
-      if (selectedSortOption === event.currentTarget.id) {
-        setSelectedSortOption("");
-      } else {
-        setSelectedSortOption(event.currentTarget.id);
-      }
-    };
-
+export const SelectableOptions = ({ options, selectedOption, handleSelect }) => {
+  const selectableOptions = options.map((option) => {
     let selectedClass = "button";
     let optionIcon = <FontAwesomeIcon icon={faXmark} className="close-icon" />;
-    if (!selectedSortOption.includes(option)) {
+    if (!selectedOption.includes(option)) {
       selectedClass = "hollow";
       optionIcon = null;
     }
@@ -25,11 +17,11 @@ export const SortOptions = ({ sortOptions, selectedSortOption, setSelectedSortOp
         type="button"
         id={option}
         className={`button ${selectedClass}`}
-        onClick={handleSelectOption}
+        onClick={handleSelect}
       >
         {option} {optionIcon}
       </button>
     );
   });
-  return <>{selectableSortOptions}</>;
+  return <>{selectableOptions}</>;
 };

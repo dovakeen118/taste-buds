@@ -12,7 +12,7 @@ export const FavoriteIcon = ({ favorite, recipeUserId, setRecipe, user }) => {
     if (user && user.id === recipeUserId) {
       try {
         const { recipe } = await patchRecipe({ id, payload: { favorite: !favorite } });
-        setRecipe(responseBody.recipe);
+        setRecipe(recipe);
       } catch (error) {
         console.error(`Error in fetch for Favorite: ${error.message}`);
       }

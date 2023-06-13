@@ -47,7 +47,7 @@ input[type="checkbox"], input[type="radio"] {
   border-color: $red;
 }
 
-.button.hollow {
+.button.hollow, .button.hollow:focus {
   border-color: $teal;
   color: $teal;
 }

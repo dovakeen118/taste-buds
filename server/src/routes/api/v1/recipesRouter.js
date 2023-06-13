@@ -3,16 +3,18 @@ import { NotFoundError, ValidationError } from "objection";
 
 import cleanUserInput from "../../../services/cleanUserInput.js";
 
-import { Recipe, Ingredient } from "../../../models/index.js";
-import RecipeSerializer from "../../../serializers/RecipeSerializer.js";
+import { Recipe } from "../../../models/index.js";
 import RecipeHelper from "../../../services/RecipeHelper.js";
+import RecipeSerializer from "../../../serializers/RecipeSerializer.js";
 
 const recipesRouter = new express.Router();
 
 recipesRouter.get("/", async (req, res) => {
+  const { filterOptions } = req.query;
   try {
-    const recipes = await Recipe.query();
-    const serializedRecipes = RecipeSerializer.getList(recipes);
+    const query = Recipe.query();
+    const filteredRecipes = await RecipeHelper.filter({ query, filterOptions });
+    const serializedRecipes = RecipeSerializer.getList(filteredRecipes);
     return res.status(200).json({ recipes: serializedRecipes });
   } catch (error) {
     return res.status(500).json({ errors: error });

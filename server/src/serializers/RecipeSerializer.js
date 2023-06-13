@@ -7,6 +7,12 @@ class RecipeSerializer {
     return recipes.map((recipe) => this.getDetails(recipe));
   }
 
+  static async getDetailedList(recipes) {
+    return await Promise.all(
+      recipes.map(async (recipe) => RecipeSerializer.getShowDetails(recipe))
+    );
+  }
+
   static async getShowDetails(recipe) {
     const serializedRecipe = this.getDetails(recipe);
     const measurements = await recipe.$relatedQuery("measurements");

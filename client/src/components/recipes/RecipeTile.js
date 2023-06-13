@@ -7,7 +7,7 @@ import { TierIcon } from "./helpers/TierIcon";
 
 export const RecipeTile = ({ recipe }) => {
   return (
-    <Link to={`/recipes/${recipe.id}`} className="cell medium-4 callout recipe-tile">
+    <Link to={`/recipes/${recipe.id}`} className="cell callout recipe-tile">
       <div className="grid-x">
         <h3 className="cell small-11">{recipe.name}</h3>
         {recipe.favorite ? <FontAwesomeIcon icon={faHeart} className="cell small-1 pink" /> : null}

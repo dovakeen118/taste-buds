@@ -2,7 +2,8 @@ import express from "express";
 import { ValidationError } from "objection";
 
 import { User } from "../../../models/index.js";
-import UserSerializer from "../../../serializers/userSerializer.js";
+import userRecipesRouter from "./userRecipesRouter.js";
+import UserSerializer from "../../../serializers/UserSerializer.js";
 
 const usersRouter = new express.Router();
 
@@ -30,5 +31,7 @@ usersRouter.post("/", async (req, res) => {
     return res.status(500).json({ errors: error });
   }
 });
+
+usersRouter.use("/:userId/recipes", userRecipesRouter);
 
 export default usersRouter;

@@ -3,6 +3,8 @@ import { Redirect, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faStar } from "@fortawesome/free-solid-svg-icons";
 
+import { getRecipe } from "../../services/requests/getRecipe";
+
 import { MeasurementIngredientList } from "../ingredients/MeasurementIngredientList";
 import { RecipeDetails } from "./RecipeDetails";
 import { StepList } from "../steps/StepsList";
@@ -15,24 +17,17 @@ export const RecipeShow = ({ user }) => {
   const [notFound, setNotFound] = useState(false);
 
   const { id } = useParams();
-  const getRecipe = async () => {
+  const fetchRecipe = async () => {
     try {
-      const response = await fetch(`/api/v1/recipes/${id}`);
-      if (!response.ok) {
-        if (response.status === 404) {
-          setNotFound(true);
-        }
-        throw new Error(`${response.status} (${response.statusText})`);
-      }
-      const responseBody = await response.json();
-      setRecipe(responseBody.recipe);
+      const { recipe } = await getRecipe({ id, setNotFound });
+      setRecipe(recipe);
     } catch (error) {
       console.error(`Error in fetch for a Recipe: ${error.message}`);
     }
   };
 
   useEffect(() => {
-    getRecipe();
+    fetchRecipe();
   }, []);
 
   if (shouldRedirect) {

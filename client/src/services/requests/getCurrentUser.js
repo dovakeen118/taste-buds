@@ -1,4 +1,4 @@
-const getCurrentUser = async () => {
+export const getCurrentUser = async () => {
   const response = await fetch("/api/v1/user-sessions/current", {
     headers: new Headers({
       "Content-Type": "application/json",
@@ -10,5 +10,3 @@ const getCurrentUser = async () => {
   const userData = await response.json();
   return userData;
 };
-
-export default getCurrentUser;

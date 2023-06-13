@@ -1,8 +1,8 @@
 import config from "../../config";
 
-const registrationFormValidation = ({ payload, setErrors }) => {
+export const registrationFormValidation = ({ userPayload, setErrors }) => {
   setErrors({});
-  const { email, password, passwordConfirmation, username } = payload;
+  const { email, password, passwordConfirmation, username } = userPayload;
   const emailRegexp = config.validation.email.regexp.emailRegex;
   let newErrors = {};
   if (!email.match(emailRegexp)) {
@@ -50,5 +50,3 @@ const registrationFormValidation = ({ payload, setErrors }) => {
   }
   return false;
 };
-
-export default registrationFormValidation;

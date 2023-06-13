@@ -1,21 +1,14 @@
 import React, { useState } from "react";
 
+import { deleteUserSession } from "../../services/requests/deleteUserSession";
+
 export const SignOutButton = () => {
   const [shouldRedirect, setShouldRedirect] = useState(false);
 
   const signOut = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("/api/v1/user-sessions", {
-        method: "DELETE",
-        headers: new Headers({
-          "Content-Type": "application/json",
-        }),
-      });
-      if (!response.ok) {
-        throw new Error(`${response.status} (${response.statusText})`);
-      }
-      const responseBody = await response.json();
+      const { responseBody } = await deleteUserSession();
       setShouldRedirect(true);
       return { status: "ok" };
     } catch (err) {

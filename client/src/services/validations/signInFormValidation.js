@@ -1,6 +1,6 @@
-const signInFormValidation = ({ payload, setErrors }) => {
+export const signInFormValidation = ({ userPayload, setErrors }) => {
   setErrors({});
-  const { username, password } = payload;
+  const { username, password } = userPayload;
   let newErrors = {};
 
   if (username.trim() === "") {
@@ -24,5 +24,3 @@ const signInFormValidation = ({ payload, setErrors }) => {
   }
   return false;
 };
-
-export default signInFormValidation;

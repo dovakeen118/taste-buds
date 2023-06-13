@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSeedling } from "@fortawesome/free-solid-svg-icons";
 
-import translateServerErrors from "../../services/translateServerErrors";
-import registrationFormValidation from "../../services/validations/registrationFormValidation";
+import { postUser } from "../../services/requests/postUser";
+import { registrationFormValidation } from "../../services/validations/registrationFormValidation";
 
 import { ErrorList } from "../layout/ErrorList";
 import { FormError } from "../layout/FormError";
@@ -24,24 +24,9 @@ export const RegistrationForm = () => {
     event.preventDefault();
     setServerErrors({});
 
-    if (registrationFormValidation({ payload: userPayload, setErrors })) {
+    if (registrationFormValidation({ userPayload, setErrors })) {
       try {
-        const response = await fetch("/api/v1/users", {
-          method: "POST",
-          body: JSON.stringify(userPayload),
-          headers: new Headers({
-            "Content-Type": "application/json",
-          }),
-        });
-        if (!response.ok) {
-          if (response.status === 422) {
-            const errorBody = await response.json();
-            const newServerErrors = translateServerErrors(errorBody.errors);
-            setServerErrors(newServerErrors);
-          }
-          throw new Error(`${response.status} (${response.statusText})`);
-        }
-        const userData = await response.json();
+        const { user } = await postUser({ userPayload, setServerErrors });
         setShouldRedirect(true);
       } catch (err) {
         console.error(`Error in fetch for Registration: ${err.message}`);

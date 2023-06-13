@@ -1,26 +1,24 @@
 import React, { useState, useEffect } from "react";
 
+import { getRecipes } from "../../services/requests/getRecipes";
+
 import { AddRecipeButton } from "./helpers/AddRecipeButton";
 import { RecipeCollection } from "./RecipeCollection";
 
 export const RecipeIndex = ({ user }) => {
   const [recipes, setRecipes] = useState([]);
 
-  const getRecipes = async () => {
+  const fetchRecipes = async () => {
     try {
-      const response = await fetch("/api/v1/recipes");
-      if (!response.ok) {
-        throw new Error(`${response.status} (${response.statusText})`);
-      }
-      const responseBody = await response.json();
-      setRecipes(responseBody.recipes);
+      const { recipes } = await getRecipes();
+      setRecipes(recipes);
     } catch (error) {
       console.error(`Error in fetch for Recipes: ${error.message}`);
     }
   };
 
   useEffect(() => {
-    getRecipes();
+    fetchRecipes();
   }, []);
 
   return (

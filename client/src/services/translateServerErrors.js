@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-const translateServerErrors = (errors) => {
+export const translateServerErrors = (errors) => {
   let serializedErrors = {};
 
   Object.keys(errors).forEach((key) => {
@@ -14,5 +14,3 @@ const translateServerErrors = (errors) => {
   });
   return serializedErrors;
 };
-
-export default translateServerErrors;

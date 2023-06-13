@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 
-import translateServerErrors from "../../services/translateServerErrors";
-import recipeFormValidation from "../../services/validations/recipeFormValidation";
+import { postRecipe } from "../../services/requests/postRecipe";
+import { recipeFormValidation } from "../../services/validations/recipeFormValidation";
 
 import { IngredientFormSection } from "../ingredients/IngredientFormSection";
 import { ErrorList } from "../layout/ErrorList";
-import { MealOptions } from "./helpers/MealOptions";
 import { StepFormSection } from "../steps/StepFormSection";
-import { TierOptions } from "./helpers/TierOptions";
+import { RecipeDetailFormFields } from "./helpers/RecipeDetailFormFields";
 
-export const RecipeForm = (props) => {
+export const RecipeForm = () => {
   const defaultIngredient = { name: "", amount: "", unit: "", description: "" };
   const defaultStep = { body: "" };
   const defaultFormState = {
@@ -96,25 +95,10 @@ export const RecipeForm = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (recipeFormValidation({ payload: recipe, setErrors })) {
+    if (recipeFormValidation({ recipe, setErrors })) {
       try {
-        const response = await fetch("/api/v1/recipes", {
-          method: "POST",
-          headers: new Headers({
-            "Content-Type": "application/json",
-          }),
-          body: JSON.stringify(recipe),
-        });
-        if (!response.ok) {
-          if (response.status === 422) {
-            const errorBody = await response.json();
-            const serverErrors = translateServerErrors(errorBody.errors);
-            setErrors(serverErrors);
-          }
-        } else {
-          const responseBody = await response.json();
-          setShouldRedirect({ id: responseBody.recipe.id, status: true });
-        }
+        const { recipeResponse } = await postRecipe({ payload: recipe, setErrors });
+        setShouldRedirect({ id: recipeResponse.id, status: true });
       } catch (error) {
         console.error(`Error in fetch to post Recipe: ${error.message}`);
       }
@@ -130,84 +114,12 @@ export const RecipeForm = (props) => {
       <h1 className="text-center">What's cookin', good lookin'?</h1>
       <ErrorList errors={errors} />
       <form onSubmit={handleSubmit} className="callout primary">
-        <div>
-          <label htmlFor="name">
-            Recipe name {errors["Name"] ? <span>*</span> : null}
-            <input
-              type="text"
-              id="name"
-              name="name"
-              onChange={handleChange}
-              value={recipe.name}
-              className="input-field"
-            />
-          </label>
-        </div>
-
-        <div className="grid-x grid-margin-x">
-          <div className="cell medium-6 callout">
-            <p>Typical meal {errors["Meal"] ? <span>*</span> : null}</p>
-            <MealOptions handleChange={handleChange} recipeMeal={recipe.meal} />
-          </div>
-
-          <div className="cell medium-6 callout">
-            <p>Tier for time {errors["Tier"] ? <span>*</span> : null}</p>
-            <TierOptions handleChange={handleChange} recipeTier={recipe.tier} />
-          </div>
-        </div>
-
-        <div className="grid-x grid-margin-x">
-          <label htmlFor="leftovers" className="cell small-6 medium-3">
-            <input
-              type="checkbox"
-              id="leftovers"
-              name="leftovers"
-              onChange={handleCheckChange}
-              checked={recipe.leftovers === true}
-            />
-            Good for leftovers? {errors["Leftovers"] ? <span>*</span> : null}
-          </label>
-
-          <label htmlFor="servings" className="cell small-6 medium-3">
-            Number of servings {errors["Servings"] ? <span>*</span> : null}
-            <input
-              type="number"
-              id="servings"
-              name="servings"
-              onChange={handleChange}
-              value={recipe.servings}
-              min={0}
-              className="input-field"
-            />
-          </label>
-
-          <label htmlFor="prepTime" className="cell small-6 medium-3">
-            Prep time (minutes) {errors["PrepTime"] ? <span>*</span> : null}
-            <input
-              type="number"
-              id="prepTime"
-              name="prepTime"
-              onChange={handleChange}
-              value={recipe.prepTime}
-              min={0}
-              className="input-field"
-            />
-          </label>
-
-          <label htmlFor="cookTime" className="cell small-6 medium-3">
-            Cook time (minutes) {errors["CookTime"] ? <span>*</span> : null}
-            <input
-              type="number"
-              id="cookTime"
-              name="cookTime"
-              onChange={handleChange}
-              value={recipe.cookTime}
-              min={0}
-              className="input-field"
-            />
-          </label>
-        </div>
-
+        <RecipeDetailFormFields
+          recipe={recipe}
+          handleChange={handleChange}
+          handleCheckChange={handleCheckChange}
+          errors={errors}
+        />
         <div className="grid-x grid-margin-x">
           <IngredientFormSection
             addToArray={addToArray}

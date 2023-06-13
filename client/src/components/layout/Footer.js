@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faSeedling } from "@fortawesome/free-solid-svg-icons";
 
-export const Footer = (props) => {
+export const Footer = () => {
   return (
     <div className="footer text-center">
       <p>

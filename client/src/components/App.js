@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { hot } from "react-hot-loader/root";
 
-import getCurrentUser from "../services/getCurrentUser";
+import { getCurrentUser } from "../services/requests/getCurrentUser";
 
-import AuthenticatedRoute from "./authentication/AuthenticatedRoute";
+import { AuthenticatedRoute } from "./authentication/AuthenticatedRoute";
 import { Footer } from "./layout/Footer";
 import { RecipeShow } from "./recipes/RecipeShow";
 import { RecipeForm } from "./recipes/RecipeForm";

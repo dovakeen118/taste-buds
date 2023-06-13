@@ -1,6 +1,6 @@
-const recipeFormValidation = ({ payload, setErrors }) => {
+export const recipeFormValidation = ({ recipe, setErrors }) => {
   setErrors({});
-  const { name, meal, tier } = payload;
+  const { name, meal, tier } = recipe;
   let newErrors = {};
 
   if (name.trim() === "") {
@@ -24,7 +24,7 @@ const recipeFormValidation = ({ payload, setErrors }) => {
     };
   }
 
-  payload.ingredients.forEach((ingredient, index) => {
+  recipe.ingredients.forEach((ingredient, index) => {
     if (ingredient.name.trim() === "") {
       newErrors = {
         ...newErrors,
@@ -45,7 +45,7 @@ const recipeFormValidation = ({ payload, setErrors }) => {
     }
   });
 
-  payload.steps.forEach((step, index) => {
+  recipe.steps.forEach((step, index) => {
     if (step.body.trim() === "") {
       newErrors = {
         ...newErrors,
@@ -61,5 +61,3 @@ const recipeFormValidation = ({ payload, setErrors }) => {
   }
   return false;
 };
-
-export default recipeFormValidation;

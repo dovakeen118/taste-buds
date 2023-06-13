@@ -4,22 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faSolidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faRegularHeart } from "@fortawesome/free-regular-svg-icons";
 
+import { patchRecipe } from "../../../services/requests/patchRecipe";
+
 export const FavoriteIcon = ({ favorite, recipeUserId, setRecipe, user }) => {
   const { id } = useParams();
   const handleClick = async () => {
     if (user && user.id === recipeUserId) {
       try {
-        const response = await fetch(`/api/v1/recipes/${id}`, {
-          method: "PATCH",
-          headers: new Headers({
-            "Content-Type": "application/json",
-          }),
-          body: JSON.stringify({ favorite: !favorite }),
-        });
-        if (!response.ok) {
-          throw new Error(`${response.status} (${response.statusText})`);
-        }
-        const responseBody = await response.json();
+        const { recipe } = await patchRecipe({ id, payload: { favorite: !favorite } });
         setRecipe(responseBody.recipe);
       } catch (error) {
         console.error(`Error in fetch for Favorite: ${error.message}`);

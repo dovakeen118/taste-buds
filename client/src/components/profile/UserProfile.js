@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { formatDate } from "../../services/formatDate";
+import { getUser } from "../../services/requests/getUser";
 
 import { RecipeCollection } from "../recipes/RecipeCollection";
 import { AddRecipeButton } from "../recipes/helpers/AddRecipeButton";
@@ -8,21 +9,17 @@ import { AddRecipeButton } from "../recipes/helpers/AddRecipeButton";
 export const UserProfile = (props) => {
   const [user, setUser] = useState({ recipes: [] });
 
-  const getUser = async () => {
+  const fetchUser = async () => {
     try {
-      const response = await fetch(`/api/v1/users/${props.user.id}`);
-      if (!response.ok) {
-        throw new Error(`${response.status} (${response.statusText})`);
-      }
-      const responseBody = await response.json();
-      setUser(responseBody.user);
+      const { user } = await getUser({ userId: props.user.id });
+      setUser(user);
     } catch (error) {
       console.error(`Error in fetch for User: ${error.message}`);
     }
   };
 
   useEffect(() => {
-    getUser();
+    fetchUser();
   }, []);
 
   return (

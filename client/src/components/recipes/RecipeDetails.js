@@ -2,8 +2,9 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 
-import { TierIcon } from "./helpers/TierIcon";
 import { toHoursAndMinutes } from "../../services/toHoursAndMinutes";
+
+import { TierIcon } from "./helpers/TierIcon";
 
 export const RecipeDetails = ({ recipe }) => {
   const totalTime =

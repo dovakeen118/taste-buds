@@ -1,4 +1,6 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 export const IngredientFormFields = ({
   ingredient,
@@ -23,8 +25,17 @@ export const IngredientFormFields = ({
           />
         </label>
 
-        <label htmlFor="description" className="cell small-6">
-          Details
+        <div className="grid-x cell small-6">
+          <label htmlFor="description" className="cell small-11">
+            Details
+          </label>
+          {numIngredients ? (
+            <FontAwesomeIcon
+              icon={faXmark}
+              className="cell small-1 x-icon"
+              onClick={() => handleRemoveIngredient(index)}
+            />
+          ) : null}
           <input
             type="text"
             id="description"
@@ -33,7 +44,7 @@ export const IngredientFormFields = ({
             onChange={handleIngredientChange}
             className="input-field"
           />
-        </label>
+        </div>
       </div>
 
       <div className="grid-x grid-margin-x">
@@ -76,16 +87,6 @@ export const IngredientFormFields = ({
           </select>
         </label>
       </div>
-
-      {numIngredients ? (
-        <button
-          type="button"
-          onClick={() => handleRemoveIngredient(index)}
-          className="button expanded alert"
-        >
-          Remove
-        </button>
-      ) : null}
     </div>
   );
 };

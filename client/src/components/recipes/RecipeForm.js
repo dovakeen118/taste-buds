@@ -113,7 +113,7 @@ export const RecipeForm = () => {
     <>
       <h1 className="text-center">What's cookin', good lookin'?</h1>
       <ErrorList errors={errors} />
-      <form onSubmit={handleSubmit} className="callout primary">
+      <form onSubmit={handleSubmit}>
         <RecipeDetailFormFields
           recipe={recipe}
           handleChange={handleChange}

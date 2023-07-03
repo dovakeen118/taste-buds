@@ -5,7 +5,7 @@ import { TierOptions } from "./TierOptions";
 
 export const RecipeDetailFormFields = ({ recipe, handleChange, handleCheckChange, errors }) => {
   return (
-    <>
+    <div className="callout primary">
       <div>
         <label htmlFor="name">
           Recipe name {errors["Name"] ? <span>*</span> : null}
@@ -27,13 +27,13 @@ export const RecipeDetailFormFields = ({ recipe, handleChange, handleCheckChange
         </div>
 
         <div className="cell medium-6 callout">
-          <p>Tier for time {errors["Tier"] ? <span>*</span> : null}</p>
+          <p>Tier for cook time {errors["Tier"] ? <span>*</span> : null}</p>
           <TierOptions handleChange={handleChange} recipeTier={recipe.tier} />
         </div>
       </div>
 
       <div className="grid-x grid-margin-x">
-        <label htmlFor="leftovers" className="cell small-6 medium-3">
+        <label htmlFor="leftovers" className="cell small-6 medium-3 text-center">
           <input
             type="checkbox"
             id="leftovers"
@@ -83,6 +83,6 @@ export const RecipeDetailFormFields = ({ recipe, handleChange, handleCheckChange
           />
         </label>
       </div>
-    </>
+    </div>
   );
 };

@@ -3,8 +3,8 @@ import StepSerializer from "./StepSerializer.js";
 import UserSerializer from "./UserSerializer.js";
 
 class RecipeSerializer {
-  static getList(recipes) {
-    return recipes.map((recipe) => this.getDetails(recipe));
+  static async getList(recipes) {
+    return await Promise.all(recipes.map(async (recipe) => this.getDetails(recipe)));
   }
 
   static async getDetailedList(recipes) {
@@ -14,7 +14,7 @@ class RecipeSerializer {
   }
 
   static async getShowDetails(recipe) {
-    const serializedRecipe = this.getDetails(recipe);
+    const serializedRecipe = await this.getDetails(recipe);
     const measurements = await recipe.$relatedQuery("measurements");
     const steps = await recipe.$relatedQuery("steps").orderBy("number");
     const user = await recipe.$relatedQuery("user");
@@ -26,7 +26,7 @@ class RecipeSerializer {
     return serializedRecipe;
   }
 
-  static getDetails(recipe) {
+  static async getDetails(recipe) {
     const allowedAttributes = [
       "id",
       "name",
@@ -46,6 +46,9 @@ class RecipeSerializer {
     for (const attribute of allowedAttributes) {
       serializedRecipe[attribute] = recipe[attribute];
     }
+
+    const user = await recipe.$relatedQuery("user");
+    serializedRecipe.user = UserSerializer.getDetails(user);
 
     return serializedRecipe;
   }

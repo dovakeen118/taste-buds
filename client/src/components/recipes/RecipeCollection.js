@@ -4,7 +4,7 @@ import { getRecipes } from "../../services/requests/getRecipes";
 import { getUserRecipes } from "../../services/requests/getUserRecipes";
 
 import { RecipeTile } from "./RecipeTile";
-import { SelectableOptions } from "./helpers/SelectableOptions";
+import { SortFilterContainer } from "./helpers/SortFilterContainer";
 
 export const RecipeCollection = ({ userId }) => {
   const [recipes, setRecipes] = useState([]);
@@ -21,7 +21,7 @@ export const RecipeCollection = ({ userId }) => {
         setRecipes([...recipesList]);
       }
     } catch (error) {
-      console.error(`Error in fetch for User: ${error.message}`);
+      console.error(`Error in fetch for Recipes: ${error.message}`);
     }
   };
 
@@ -29,81 +29,51 @@ export const RecipeCollection = ({ userId }) => {
     fetchRecipes();
   }, [selectedFilterOptions]);
 
-  const sortOptions = ["a - z", "z - a", "time tier"];
-  const filterOptions = [
-    "favorites",
-    "breakfast",
-    "lunch",
-    "dinner",
-    "snack",
-    "dessert",
-    "quick",
-    "average",
-    "extended",
-  ];
-
   const sortRecipes = (sortOption) => {
     const tierOrder = ["quick", "average", "extended"];
     if (sortOption === "a - z") {
       return (a, b) => a.name.localeCompare(b.name);
     } else if (sortOption === "z - a") {
       return (a, b) => b.name.localeCompare(a.name);
-    } else if (sortOption === "time tier") {
+    } else if (sortOption === "low time") {
       return (a, b) => tierOrder.indexOf(a.tier) - tierOrder.indexOf(b.tier);
+    } else if (sortOption === "high time") {
+      return (a, b) => tierOrder.indexOf(b.tier) - tierOrder.indexOf(a.tier);
     } else {
       return (a, b) => new Date(a.updatedAt) - new Date(b.updatedAt);
     }
   };
 
   const recipeTiles = [...recipes].sort(sortRecipes(selectedSortOption)).map((recipe) => {
-    return <RecipeTile key={recipe.id} recipe={recipe} />;
+    return <RecipeTile key={recipe.id} recipe={recipe} userId={userId} />;
   });
-
-  const handleSelectSortOption = (event) => {
-    if (selectedSortOption === event.currentTarget.id) {
-      setSelectedSortOption("");
-    } else {
-      setSelectedSortOption(event.currentTarget.id);
-    }
-  };
-
-  const handleSelectFilterOption = (event) => {
-    if (selectedFilterOptions.includes(event.currentTarget.id)) {
-      setSelectedFilterOptions(
-        selectedFilterOptions.filter((option) => option !== event.currentTarget.id)
-      );
-    } else {
-      setSelectedFilterOptions([...selectedFilterOptions, event.currentTarget.id]);
-    }
-  };
 
   return (
     <>
-      <div className="callout primary">
-        <div className="grid-x callout button-group">
-          <div className="cell medium-6">
-            <p>sort by</p>
-            <SelectableOptions
-              options={sortOptions}
-              selectedOption={selectedSortOption}
-              handleSelect={handleSelectSortOption}
-            />
-          </div>
-          <div className="cell medium-6">
-            <p>filter by</p>
-            <SelectableOptions
-              options={filterOptions}
-              selectedOption={selectedFilterOptions}
-              handleSelect={handleSelectFilterOption}
-            />
-          </div>
-        </div>
+      <SortFilterContainer
+        selectedSortOption={selectedSortOption}
+        setSelectedSortOption={setSelectedSortOption}
+        selectedFilterOptions={selectedFilterOptions}
+        setSelectedFilterOptions={setSelectedFilterOptions}
+      />
+      <div className="callout primary small-12 recipes-section">
+        {selectedSortOption ? (
+          <p>
+            Sorting by: <strong>{selectedSortOption}</strong>
+          </p>
+        ) : null}
+        {selectedFilterOptions.length > 0 ? (
+          <p>
+            Filtering by: <strong>{selectedFilterOptions.join(", ")}</strong>
+          </p>
+        ) : null}
+
         {recipes.length > 0 ? (
           <div className="grid-x grid-margin-x">{recipeTiles}</div>
         ) : selectedSortOption || selectedFilterOptions.length > 0 ? (
-          <p className="text-center">No recipes found</p>
+          <h4 className="text-center">No recipes found</h4>
         ) : (
-          <p className="text-center">Add some recipes to the cookbook</p>
+          <h4 className="text-center">Add some recipes to the cookbook</h4>
         )}
       </div>
     </>

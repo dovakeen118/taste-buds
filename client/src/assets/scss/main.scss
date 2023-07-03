@@ -1,6 +1,7 @@
 @import "./foundation/settings";
 @import "~foundation-sites/scss/foundation";
 @include foundation-everything;
+
 @import "./colors.scss";
 
 *,
@@ -125,13 +126,26 @@ input[type="checkbox"], input[type="radio"] {
   }
 }
 
-.close-icon {
-  margin-left: 5px;
-  vertical-align: middle;
+.x-icon {
+  color: $grey;
 }
 
-.clickable-text:hover {
-  cursor: pointer;
+.filter-section {
+  position: absolute;
+  z-index: 1;
+}
+
+.sort-filter {
+  height: fit-content;
+  min-width: 125px;
+
+  .button-heart {
+    margin: auto;
+  }
+}
+
+.recipes-section {
+  margin-top: 80px;
 }
 
 .recipe-column, .recipe-tile {
@@ -140,6 +154,7 @@ input[type="checkbox"], input[type="radio"] {
 
 .recipe-tile {
   box-shadow: 3px 3px 5px $grey;
+  width: 100%;
 }
 
 .recipe-tile:hover {
@@ -149,8 +164,8 @@ input[type="checkbox"], input[type="radio"] {
   box-shadow: 3px 3px 5px $teal;
 }
 
-.teal {
-  color: $teal;
+.grey {
+  color: $grey;
 }
 
 .pink {
@@ -161,10 +176,14 @@ input[type="checkbox"], input[type="radio"] {
   color: $red;
 }
 
+.teal {
+  color: $teal;
+}
+
 .yellow {
   color: $yellow;
 }
 
-.button-heart:hover, .button-star:hover {
+.button-heart:hover, .button-star:hover, .x-icon:hover, .sort-filter:hover, .clickable-text:hover {
   cursor: pointer;
 }

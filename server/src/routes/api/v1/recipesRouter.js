@@ -14,7 +14,7 @@ recipesRouter.get("/", async (req, res) => {
   try {
     const query = Recipe.query();
     const filteredRecipes = await RecipeHelper.filter({ query, filterOptions });
-    const serializedRecipes = RecipeSerializer.getList(filteredRecipes);
+    const serializedRecipes = await RecipeSerializer.getList(filteredRecipes);
     return res.status(200).json({ recipes: serializedRecipes });
   } catch (error) {
     return res.status(500).json({ errors: error });

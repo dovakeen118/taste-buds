@@ -1,4 +1,6 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { StepFormField } from "./StepFormField";
 
@@ -25,16 +27,18 @@ export const StepFormSection = ({
   });
 
   return (
-    <div className="cell medium-6 callout recipe-column">
-      <h3>Steps</h3>
-      {stepFields}
-      <button
-        className="button expanded"
-        type="button"
-        onClick={() => addToArray("steps", defaultStep)}
-      >
-        Add step
-      </button>
+    <div className="cell medium-6 recipe-column">
+      <h3 className="text-center">Steps</h3>
+      <div className="callout">
+        {stepFields}
+        <button
+          className="button expanded"
+          type="button"
+          onClick={() => addToArray("steps", defaultStep)}
+        >
+          <FontAwesomeIcon icon={faPlus} /> step
+        </button>
+      </div>
     </div>
   );
 };

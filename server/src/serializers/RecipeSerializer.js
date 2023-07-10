@@ -52,6 +52,34 @@ class RecipeSerializer {
 
     return serializedRecipe;
   }
+
+  static getMealCounts(recipes) {
+    const mealCounts = {
+      breakfast: 0,
+      lunch: 0,
+      dinner: 0,
+      snack: 0,
+      dessert: 0,
+    };
+    for (const recipe of recipes) {
+      const meal = recipe.meal;
+      mealCounts[meal] += 1;
+    }
+    return mealCounts;
+  }
+
+  static getTimeCounts(recipes) {
+    const timeCounts = {
+      quick: 0,
+      average: 0,
+      extended: 0,
+    };
+    for (const recipe of recipes) {
+      const timeTier = recipe.tier;
+      timeCounts[timeTier] += 1;
+    }
+    return timeCounts;
+  }
 }
 
 export default RecipeSerializer;

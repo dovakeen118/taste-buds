@@ -44,7 +44,7 @@ recipesRouter.post("/", async (req, res) => {
         originalRecipeId,
         userId: req.user.id,
       });
-      const serializedRecipe = await RecipeSerializer.getShowDetails(createdRecipe);
+      const serializedRecipe = await RecipeSerializer.getDetails(createdRecipe);
       return res.status(201).json({ recipe: serializedRecipe });
     } catch (error) {
       if (error instanceof ValidationError) {
@@ -70,7 +70,7 @@ recipesRouter.post("/", async (req, res) => {
         userId,
       });
 
-      const serializedRecipe = RecipeSerializer.getDetails(createdRecipe);
+      const serializedRecipe = await RecipeSerializer.getDetails(createdRecipe);
       return res.status(201).json({ recipe: serializedRecipe });
     } catch (error) {
       if (error instanceof ValidationError) {

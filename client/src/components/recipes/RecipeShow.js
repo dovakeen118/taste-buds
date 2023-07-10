@@ -56,7 +56,7 @@ export const RecipeShow = ({ user }) => {
               {user && user.id !== recipe.userId ? <SaveIcon setRecipe={setRecipe} /> : null}
             </h1>
             <h3 className="subheader">
-              Written by{" "}
+              created by{" "}
               {user?.id === recipe.userId ? (
                 "you"
               ) : (
@@ -68,7 +68,7 @@ export const RecipeShow = ({ user }) => {
             </h3>
             {recipe.originalRecipeId ? (
               <h5 className="clickable-text subheader" onClick={() => setShouldRedirect(true)}>
-                <FontAwesomeIcon icon={faStar} className="yellow" /> Original recipe
+                <FontAwesomeIcon icon={faStar} className="yellow" /> see original recipe
               </h5>
             ) : null}
           </>
